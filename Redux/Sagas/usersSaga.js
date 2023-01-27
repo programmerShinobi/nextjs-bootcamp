@@ -5,42 +5,41 @@ import { doAddUsersFailed, doAddUsersSucceed, doDeleteUsersFailed, doDeleteUsers
 
 function* handleUsers() {
     try {
-        const result = yield call(ReduceService.getAll)
-        yield put(doUsersRequestSucceed(result.data))
-        // console.info(result.data);
+        const result = yield call(ReduceService.getAll);
+        yield put(doUsersRequestSucceed(result.data));
     }
     catch (error) {
-        yield put(doUsersRequestFailed(error))
+        yield put(doUsersRequestFailed(error));
     }
 }
 
 function* handleAddUsers(action) {
     try {
-        const result = yield call(ReduceService.create, action.payload)
-        yield put(doAddUsersSucceed(result.data))
+        const result = yield call(ReduceService.create, action.payload);
+        yield put(doAddUsersSucceed(result.data));
     }
     catch (error) {
-        yield put(doAddUsersFailed(error))
+        yield put(doAddUsersFailed(error));
     }
 }
 
 function* handleUpdateUsers(action) {
     try {
-        const result = yield call(ReduceService.update, action.payload)
-        yield put(doUpdateUsersSucceed(result.data))
+        const result = yield call(ReduceService.update, action.payload);
+        yield put(doUpdateUsersSucceed(result.data));
     }
     catch (error) {
-        yield put(doUpdateUsersFailed(error))
+        yield put(doUpdateUsersFailed(error));
     }
 }
 
 function* handleDelUsers(action) {
     try {
-        const result = yield call(ReduceService.remove, action.payload)
-        yield put(doDeleteUsersSucceed(action.payload))
+        const result = yield call(ReduceService.remove, action.payload);
+        yield put(doDeleteUsersSucceed(action.payload));
     }
     catch (error) {
-        yield put(doDeleteUsersFailed(error))
+        yield put(doDeleteUsersFailed(error));
     }
 }
 

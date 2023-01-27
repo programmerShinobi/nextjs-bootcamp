@@ -7,15 +7,16 @@ import rootSaga from '../Sagas'
 const saga = createSagaMiddleware()
 const reducer = combineReducers({
     usersReducers: usersReducers
-})
+});
+
 const store = configureStore({
     reducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false,
         }).concat(saga)
-})
+});
 
-saga.run(rootSaga)
+saga.run(rootSaga);
 
-export default store
+export default store;
