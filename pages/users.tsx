@@ -29,7 +29,7 @@ export default function Users() {
     {
       field: 'userId',
       headerName: 'ID',
-      flex: 0.5,
+      flex: 0.25,
     },
     {
       field: 'userFullName',
@@ -50,7 +50,7 @@ export default function Users() {
     {
       field: 'userPhoneNumber',
       headerName: 'Phone',
-      flex: 1,
+      flex: 0.5,
     },
   ]
 
@@ -58,35 +58,36 @@ export default function Users() {
     <Box>
       <p className="text-gray-700 text-3xl mb-16 font-bold">Users</p>
       <Box
-        className="grid col-2 bg-white  shadow-sm"
-      sx={{
-              "& .MuiDataGrid-root": {
-              border: "none",
-              },
-              "& .MuiDataGrid-cell": {
-                borderBottom: "none",
-              },
-              "& .name-column--cell": {
-                color: "bg-orange-100 text-orange-500",
-              },
-              "& .MuiDataGrid-columnHeaders": {
-                backgroundColor: "transition-colors bg-orange-100",
-                borderBottom: "none",
-              },
-              "& .MuiDataGrid-virtualScroller": {
-                backgroundColor: colors.primary[400],
-              },
-              "& .MuiDataGrid-footerContainer": {
-                borderTop: "none",
-                backgroundColor: "transition-colors bg-orange-100",
-              },
-              "& .MuiCheckbox-root": {
-                color: `${colors.greenAccent[200]} !important`,
-              },
-                "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                color: `${colors.grey[100]} !important`,
-              },
-            }}
+        m="40px 0 0 0"
+        height="75vh"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .name-column--cell": {
+            color: colors.primary[100],
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            borderBottom: "none",
+            backgroundColor: colors.grey[800],
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.grey[800],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
+        }}
       >
         {/* <table className='table'>
           <thead>
@@ -111,15 +112,13 @@ export default function Users() {
           </tbody>
         </table> */}
         {
-          !loading && Data.length > 0 ? 
           <DataGrid
-            // autoPageSize
             autoHeight
             rows={Data}
             columns={columns}
             getRowId={(row: any) => row.userId}
             components={{ Toolbar: GridToolbar }}          
-          /> : null
+          />
         }
       </Box>
     </Box>
