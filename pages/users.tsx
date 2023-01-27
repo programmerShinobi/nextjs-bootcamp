@@ -76,12 +76,12 @@ export default function Users() {
 
   ];
 
-    const handleEdit = (id) => {
-      console.info(`EDIT ${id}`);
+    const handleEdit = (userId:number) => {
+      console.info(`EDIT ${userId}`);
     }
 
-    const handleDelete = (id) => {
-      console.info(`DELETE ${id}`);
+    const handleDelete = (userId:number) => {
+      console.info(`DELETE ${userId}`);
     }
 
   return (
