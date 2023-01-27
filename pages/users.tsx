@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { doUsersRequest } from '../Redux/Actions/reduceActions';
 import { Box, useTheme } from "@mui/material"
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 
 export default function Users() {
@@ -29,6 +31,7 @@ export default function Users() {
     {
       field: 'userId',
       headerName: 'ID',
+      type:'number',
       flex: 0.3,
     },
     {
@@ -52,7 +55,34 @@ export default function Users() {
       headerName: 'Phone',
       flex: 0.75,
     },
-  ]
+    {
+      field: 'actions',
+      type: 'actions',
+      width: 100,
+      
+      getActions: (rowData:any) => [
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          label="Edit"
+          onClick={() => handleEdit(rowData.userId)}
+        />,
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          label="Delete"
+          onClick={() => handleDelete(rowData.userId)}
+        />,
+      ],
+    },
+
+  ];
+
+    const handleEdit = (id) => {
+      console.info(`EDIT ${id}`);
+    }
+
+    const handleDelete = (id) => {
+      console.info(`DELETE ${id}`);
+    }
 
   return (
     <Box>
