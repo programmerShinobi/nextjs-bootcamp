@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import Link from "next/link";
-import { HomeIcon, CreditCardIcon, UserIcon } from "@heroicons/react/24/solid";
+import { HomeIcon, CreditCardIcon, UserIcon, UsersIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 
 const SideBar = forwardRef(({ showNav }, ref) => {
@@ -42,7 +42,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               }`}
           >
             <div className="mr-2">
-              <UserIcon className="h-5 w-5" />
+              <UsersIcon className="h-5 w-5" />
             </div>
             <div>
               <p>Users</p>
