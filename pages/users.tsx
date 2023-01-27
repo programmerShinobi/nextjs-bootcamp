@@ -58,9 +58,11 @@ export default function Users() {
     <Box>
       <p className="text-gray-700 text-3xl mb-16 font-bold">Users</p>
       <Box
-        m="40px 0 0 0"
-        height="75vh"
+        // m="40px 0 0 0"
+        // height="75vh"
         sx={{
+          height: 10,
+          width: '100%', 
           "& .MuiDataGrid-root": {
             border: "none",
           },
@@ -82,7 +84,7 @@ export default function Users() {
             backgroundColor: colors.grey[800],
           },
           "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
+            color: `${colors.greenAccent[200]}`,
           },
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
             color: `${colors.grey[100]} !important`,
@@ -114,10 +116,12 @@ export default function Users() {
         {
           <DataGrid
             autoHeight
+            pageSize={5}
+            rowsPerPageOptions={[5, 10, 15, 20]}
             rows={Data}
             columns={columns}
             getRowId={(row: any) => row.userId}
-            components={{ Toolbar: GridToolbar }}          
+            components={{ Toolbar: GridToolbar }} 
           />
         }
       </Box>
