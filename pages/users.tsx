@@ -50,7 +50,7 @@ export default function Users() {
     {
       field: 'userPhoneNumber',
       headerName: 'Phone',
-      flex: 0.5,
+      flex: 0.75,
     },
   ]
 
@@ -58,8 +58,6 @@ export default function Users() {
     <Box>
       <p className="text-gray-700 text-3xl mb-16 font-bold">Users</p>
       <Box
-        // m="40px 0 0 0"
-        // height="75vh"
         sx={{
           height: 10,
           width: '100%', 
