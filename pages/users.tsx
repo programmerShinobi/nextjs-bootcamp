@@ -29,7 +29,7 @@ export default function Users() {
     {
       field: 'userId',
       headerName: 'ID',
-      flex: 0.25,
+      flex: 0.3,
     },
     {
       field: 'userFullName',
