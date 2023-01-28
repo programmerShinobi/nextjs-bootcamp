@@ -38,6 +38,25 @@ export default function Users() {
   // column API GET users
   const columns = [
     {
+      field: 'actions',
+      headerName:'Actions',
+      type: 'actions',
+      flex: 0.5,
+
+      getActions: (row:any) => [
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          label="Edit"
+          onClick={() => handleEdit(row.id)}
+        />,
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          label="Delete"
+          onClick={() => handleDelete(row.id)}
+        />,
+      ],
+    },
+    {
       field: 'userId',
       headerName: 'ID',
       type:'number',
@@ -63,25 +82,6 @@ export default function Users() {
       field: 'userPhoneNumber',
       headerName: 'Phone',
       flex: 0.75,
-    },
-    {
-      field: 'actions',
-      headerName:'Actions',
-      type: 'actions',
-      flex: 0.5,
-
-      getActions: (row:any) => [
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          onClick={() => handleEdit(row.id)}
-        />,
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={() => handleDelete(row.id)}
-        />,
-      ],
     },
   ];
 
