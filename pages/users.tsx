@@ -1,4 +1,4 @@
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Transition, Listbox } from '@headlessui/react'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { doUsersRequest, doUsersCreate } from '../Redux/Actions/reduceActions';
@@ -9,7 +9,7 @@ import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import { isNull } from 'lodash';
 import Input from '@mui/material/Input';
-import { PlusIcon } from '@heroicons/react/24/solid';
+import { CheckIcon, ChevronUpDownIcon, PlusIcon } from '@heroicons/react/24/solid';
 
 export default function Users() {
   // defaine themes
@@ -84,16 +84,16 @@ export default function Users() {
   ];
 
   // useState : modals Add New
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpenAdd, setIsOpenAdd] = useState(false)
 
   //  function : close modals Add New
   function closeModal() {
-    setIsOpen(false)
+    setIsOpenAdd(false)
   }
 
   //  function : open modals Add New
   function openModal() {
-    setIsOpen(true)
+    setIsOpenAdd(true)
   }
 
   // useDispatch API POST users
@@ -103,6 +103,7 @@ export default function Users() {
   const [DataUser, setDataUser] = useState({
     userFullName: null,
     userCompanyName: null,
+    userType: null,
     userEmail: null,
     userPhoneNumber:  null,
   })
@@ -119,6 +120,17 @@ export default function Users() {
       e.preventDefault();
       dispatchAdd(doUsersCreate(DataUser))
   }
+
+  // userType in field users
+  const userType = [
+    { name: 'T' },
+    { name: 'C' },
+    { name: 'I' },
+  ];
+
+  // define select userType in field users
+  const [selectedAddUserType, setSelectedAddUserType] = useState(userType[0]);
+
 
   
   const handleEdit = (id: number) => {
@@ -139,11 +151,11 @@ export default function Users() {
       <Button
           type="button"
           onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-normal text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-normal text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       ><PlusIcon width={20} /><span className='text-transparent'>-</span> Add
       </Button>
       </ButtonGroup>
-        <Transition appear show={isOpen} as={Fragment}>
+        <Transition appear show={isOpenAdd} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={closeModal}>
             <Transition.Child
               as={Fragment}
@@ -177,18 +189,70 @@ export default function Users() {
                     </Dialog.Title>
                     <form>
                       <div className="mt-15 bg-inherit">
-                            <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                                <Input required fullWidth type="text" placeholder="Full Name ..." className="form-control" id="userFullName" onChange={eventHandlerAdd('userFullName')} />
+                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
+                            <Input required fullWidth type="text" placeholder="Full Name ..." className="form-control" id="userFullName" onChange={eventHandlerAdd('userFullName')} />
+                        </div>
+                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
+                          <Listbox value={selectedAddUserType} onChange={setSelectedAddUserType}>
+                            <div className="relative mt-1">
+                              <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                <span className="block truncate">{selectedAddUserType.name}</span>
+                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                  <ChevronUpDownIcon
+                                    className="h-5 w-5 text-gray-400"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              </Listbox.Button>
+                              <Transition
+                                as={Fragment}
+                                leave="transition ease-in duration-100"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                  {userType.map((user, userIdx) => (
+                                    <Listbox.Option
+                                      key={userIdx}
+                                      className={({ active }) =>
+                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                          active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                                        }`
+                                      }
+                                      value={user}
+                                    >
+                                      {({ selected }) => (
+                                        <>
+                                          <span
+                                            className={`block truncate ${
+                                              selected ? 'font-medium' : 'font-normal'
+                                            }`}
+                                          >
+                                            {user.name}
+                                          </span>
+                                          {selected ? (
+                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                              <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                            </span>
+                                          ) : null}
+                                        </>
+                                      )}
+                                    </Listbox.Option>
+                                  ))}
+                                </Listbox.Options>
+                              </Transition>
                             </div>
-                            <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                                <Input required fullWidth aria-required type="text" placeholder="Company Name ..." className="form-control" id="userCompanyName" onChange={eventHandlerAdd('userCompanyName')} />
-                            </div>
-                            <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                                <Input required fullWidth aria-required type="text" placeholder="Company Name ..." className="form-control" id="userEmail" onChange={eventHandlerAdd('userEmail')} />
-                            </div>
-                            <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                                <Input required fullWidth aria-required type="text" placeholder="Phone Number ..." className="form-control" id="userPhoneNumber" onChange={eventHandlerAdd('userPhoneNumber')} />
-                            </div>
+                          </Listbox>
+                        </div>
+                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
+                            <Input required fullWidth aria-required type="text" placeholder="Company Name ..." className="form-control" id="userCompanyName" onChange={eventHandlerAdd('userCompanyName')} />
+                        </div>
+                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
+                            <Input required fullWidth aria-required type="email" placeholder="Email ..." className="form-control" id="userEmail" onChange={eventHandlerAdd('userEmail')} />
+                        </div>
+                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
+                            <Input required fullWidth aria-required type="text" placeholder="Phone Number ..." className="form-control" id="userPhoneNumber" onChange={eventHandlerAdd('userPhoneNumber')} />
+                        </div>
                       </div>
 
                     <div className="mt-4 transition-all">
