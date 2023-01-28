@@ -2,13 +2,14 @@ import { Dialog, Transition } from '@headlessui/react'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { doUsersRequest, doUsersCreate } from '../Redux/Actions/reduceActions';
-import { Box, Button, useTheme } from "@mui/material"
+import { Box, Button, ButtonGroup, IconButton, useTheme } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import { isNull } from 'lodash';
 import Input from '@mui/material/Input';
+import { PlusIcon } from '@heroicons/react/24/solid';
 
 export default function Users() {
   // defaine themes
@@ -134,13 +135,14 @@ export default function Users() {
   return (
     <Box>
       <p className="text-gray-700 text-3xl mb-16 font-bold">Users</p>
-      <button
+      <ButtonGroup className="align-middle">
+      <Button
           type="button"
           onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-        >
-          Add New
-      </button>
+          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-normal text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+      ><PlusIcon width={20} /><span className='text-transparent'>-</span> Add
+      </Button>
+      </ButtonGroup>
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={closeModal}>
             <Transition.Child
