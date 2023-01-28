@@ -1,7 +1,7 @@
 import { Dialog, Transition, Listbox } from '@headlessui/react'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { doUsersRequest, doUsersCreate } from '../Redux/Actions/reduceActions';
+import { doUsersRequest, doUsersCreate, doDeleteUsers } from '../Redux/Actions/reduceActions';
 import { Box, Button, ButtonGroup, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -170,6 +170,8 @@ export default function Users() {
   // function handler API DELETE user
   const handleDelete = (id: number) => {
     console.info(`DELETE ${id}`);
+    //  dispatch API DELETE users
+    dispatch(doDeleteUsers(id));
   }
   
   return (
