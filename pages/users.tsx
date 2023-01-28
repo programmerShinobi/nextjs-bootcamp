@@ -14,7 +14,6 @@ export default function Users() {
 
   const [Data, setData] = useState([]);  
   const users = useSelector((state: any) => state.usersReducers.users);
-  const loading = useSelector((state: any) => state.usersReducers.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,30 +58,29 @@ export default function Users() {
       field: 'actions',
       type: 'actions',
       width: 100,
-      
-      getActions: (rowData:any) => [
+
+      getActions: (row:any) => [
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Edit"
-          onClick={() => handleEdit(rowData.userId)}
+          onClick={() => handleEdit(row.id)}
         />,
         <GridActionsCellItem
           icon={<DeleteIcon />}
           label="Delete"
-          onClick={() => handleDelete(rowData.userId)}
+          onClick={() => handleDelete(row.id)}
         />,
       ],
     },
-
   ];
 
-    const handleEdit = (userId:number) => {
-      console.info(`EDIT ${userId}`);
-    }
+  const handleEdit = (id: number) => {
+    console.info(`EDIT ${id}`);
+  }
 
-    const handleDelete = (userId:number) => {
-      console.info(`DELETE ${userId}`);
-    }
+  const handleDelete = (id: number) => {
+    console.info(`DELETE ${id}`);
+  }
 
   return (
     <Box>

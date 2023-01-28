@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.6",
     "@mui/x-data-grid": "^5.17.21",
+    "@mui/x-data-grid-generator": "^5.17.20",
     "@next/font": "13.1.4",
     "@redux-saga/core": "^1.2.2",
     "@reduxjs/toolkit": "^1.9.1",
