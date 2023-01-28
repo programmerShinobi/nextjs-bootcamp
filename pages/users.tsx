@@ -8,9 +8,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import * as yup from "yup";
-import { PlusIcon } from '@heroicons/react/24/solid';
+import { LockClosedIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import TextField from '@mui/material/TextField';
-import { Form, Formik } from 'formik';
+import { Form, Formik, ErrorMessage, Field, FieldArray } from 'formik';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import SaveIcon from '@mui/icons-material/Save';
 
 export default function Users() {
   // defaine themes
@@ -127,7 +129,12 @@ export default function Users() {
   }
   
   // function handle submit form add new users (API POST users)
-  const handleFormSubmit = (values: any) => {
+  const handleFormSubmit = (values: any, { setSubmitting }: any) => {
+    setSubmitting(true);
+    dispatchAdd(doUsersCreate(values));
+    dispatch(doUsersRequest());
+    setIsOpenAdd(false);
+    setSubmitting(false);
   };
 
   // getHelper for display in form
@@ -207,14 +214,22 @@ export default function Users() {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="w-full max-w-md  transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Box display="flex" justifyContent="end">
+                      <Button
+                        onClick={closeModalAdd}
+                        type="button"
+                        color="error"
+                        className="rounded-md bg-red-100 text-red-500 border-error-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                          <XMarkIcon width={15} height={15}/>
+                      </Button>
+                    </Box>
                     <Dialog.Title
                       as="h3"
                       className="text-lg font-medium leading-6 text-black"
                     >
                       Add New User
-                  </Dialog.Title>
-                  <br></br>
-                    
+                    </Dialog.Title>
+                    <br></br>
                     <Formik
                       onSubmit={handleFormSubmit}
                       initialValues={initialValues}
@@ -233,9 +248,7 @@ export default function Users() {
                             display="grid"
                             gap="30px"
                             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                              
-                        >
-                          
+                          >
                             <TextField
                               color="warning"
                               fullWidth
@@ -249,29 +262,30 @@ export default function Users() {
                               error={!!touched.userFullName && !!errors.userFullName}
                               helperText={getHelperText(touched.userFullName, errors.userFullName)}
                               sx={{ gridColumn: "span 4" }}
-                              
                             />
-                            <Select
-                              color="warning"
-                              fullWidth
-                              variant="filled"
-                              type="text"
-                              label="Type"
-                              onBlur={handleBlur}
-                              onChange={(event) => {eventHandlerAdd('userType')(event); handleChange(event)}}
-                              value={values.userType}
-                              name="userType"
-                              error={!!touched.userType && !!errors.userType}
-                              // helperText={getHelperText(touched.userType, errors.userType)}
-                              sx={{ gridColumn: "span 4" }}
+                            <FormControl variant="filled" sx={{ gridColumn: "span 4" }} error={!!touched.userType && !!errors.userType}>
+                              <InputLabel id="userType" color="warning">Type</InputLabel>
+                              <Select
+                                placeholder="Select type ..."
+                                color="warning"
+                                fullWidth
+                                variant="filled"
+                                className='form-control'
+                                label="Type"
+                                onBlur={handleBlur}                             
+                                onChange={(event) => {eventHandlerAdd('userType')(event); handleChange(event)}}
+                                value={values.userType}
+                                name="userType"
+                                
+                                // helperText={getHelperText(touched.userFullName, errors.userFullName)}
                             >
-                              <MenuItem value="Select Type">
-                                <em>Select Type ...</em>
-                              </MenuItem>
-                              <MenuItem value='T'>Travel Agent</MenuItem>
-                              <MenuItem value='C'>Company</MenuItem>
-                              <MenuItem value='I'>Individual</MenuItem>
+                                <MenuItem value=''><em>none</em></MenuItem>
+                                <MenuItem value='T'>Travel Agent</MenuItem>
+                                <MenuItem value='C'>Company</MenuItem>
+                                <MenuItem value='I'>Individual</MenuItem>
                             </Select>
+                           {!!touched.userType && !!errors.userType && <span className='text-red-600 text-xs pt-1 pl-4'>{getHelperText(touched.userType, errors.userType)}</span>}
+                            </FormControl>
                             <TextField
                               color="warning"
                               fullWidth
@@ -315,10 +329,25 @@ export default function Users() {
                               sx={{ gridColumn: "span 4" }}
                             />
                           </Box>
-                          <Box display="flex" justifyContent="end" mt="20px">
-                            <Button className="bg-gray-700 text-white" type="submit" color="warning" variant="contained" onClick={addData}>
-                                Create New User
+                          <Box display="flex" justifyContent="center" mt="20px">
+                            <Box display="flex"  mx="20px">
+                            <Button
+                              type="reset"
+                              color="warning"
+                              className="rounded-md bg-yellow-100 text-yellow-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                <RefreshIcon width={15} height={15}/>
                             </Button>
+                            </Box>
+                            <Box display="flex">
+                            <Button
+                              // onClick={addData}
+                              type="submit"
+                              color="success"
+                              className="rounded-md bg-green-100 text-green-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                              <SaveIcon width={15} height={15} />
+                            </Button>
+                            </Box>
+                            
                           </Box>
                         </Form>
                       )}
