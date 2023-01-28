@@ -147,6 +147,9 @@ export default function Users() {
     console.info(`DELETE ${id}`);
   }
 
+
+
+
   const handleFormSubmit = (values:any) => {
       console.log(values);
   };
@@ -154,6 +157,25 @@ export default function Users() {
   const getHelperText = (touched:any, errors:any) => {
     return (touched && errors ? errors : false)
   }
+
+  const phoneRegExp =
+    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+
+  const checkoutSchema:any = yup.object().shape({
+    userFullName: yup.string().required("required"),
+    userCompanyName: yup.string().required("required"),
+    userEmail: yup.string().email("invalid email").required("required"),
+    userPhoneNumber: yup
+      .string()
+      .matches(phoneRegExp, "Phone number is not valid")
+      .required("required"),
+  });
+  const initialValues:any = {
+    userFullName: "",
+    userCompanyName: "",
+    userEmail: "",
+    userPhoneNumber: "",
+  };
 
   
   return (
@@ -298,7 +320,7 @@ export default function Users() {
                                         type="text"
                                         label="First Name"
                                         onBlur={handleBlur}
-                                        onChange={handleChange}
+                                        onChange={(event) => {eventHandlerAdd('userFullName')(event); handleChange(event)}}
                                         value={values.userFullName}
                                         name="userFullName"
                                         error={!!touched.userFullName && !!errors.userFullName}
@@ -312,7 +334,7 @@ export default function Users() {
                                         type="text"
                                         label="Company Name"
                                         onBlur={handleBlur}
-                                        onChange={handleChange}
+                                        onChange={(event) => {eventHandlerAdd('userCompanyName')(event); handleChange(event)}}
                                         value={values.userCompanyName}
                                         name="userCompanyName"
                                         error={!!touched.userCompanyName && !!errors.userCompanyName}
@@ -323,10 +345,10 @@ export default function Users() {
                                         color="warning"
                                         fullWidth
                                         variant="filled"
-                                        type="text"
+                                        type="email"
                                         label="Email"
                                         onBlur={handleBlur}
-                                        onChange={handleChange}
+                                        onChange={(event) => {eventHandlerAdd('userEmail')(event); handleChange(event)}}
                                         value={values.userEmail}
                                         name="userEmail"
                                         error={!!touched.userEmail && !!errors.userEmail}
@@ -341,7 +363,7 @@ export default function Users() {
                                       type="text"
                                       label="Phone Number"
                                       onBlur={handleBlur}
-                                      onChange={handleChange}
+                                      onChange={(event) => {eventHandlerAdd('userPhoneNumber')(event); handleChange(event)}}
                                       value={values.userPhoneNumber}
                                       name="userPhoneNumber"
                                       error={!!touched.userPhoneNumber && !!errors.userPhoneNumber}
@@ -434,22 +456,3 @@ export default function Users() {
     </Box>
   );
 }
-
-const phoneRegExp =
-    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
-const checkoutSchema:any = yup.object().shape({
-    userFullName: yup.string().required("required"),
-    userCompanyName: yup.string().required("required"),
-    userEmail: yup.string().email("invalid email").required("required"),
-    userPhoneNumber: yup
-        .string()
-        .matches(phoneRegExp, "Phone number is not valid")
-        .required("required"),
-});
-const initialValues:any = {
-    userFullName: "",
-    userCompanyName: "",
-    userEmail: "",
-    userPhoneNumber: "",
-};
