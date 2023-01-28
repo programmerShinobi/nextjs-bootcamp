@@ -130,37 +130,21 @@ export default function Users() {
     { name: 'I' },
   ];
 
-  // define select userType in field users
-  const [selectedAddUserType, setSelectedAddUserType] = React.useState('');
-
-  const handleChangeUserType = (event: SelectChangeEvent) => {
-    setSelectedAddUserType(event.target.value);
-  };
-
-  
-  const handleEdit = (id: number) => {
-    console.info(`EDIT ${id}`);
-  }
-
-  
-  const handleDelete = (id: number) => {
-    console.info(`DELETE ${id}`);
-  }
-
-
-
-
+  // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values:any) => {
       console.log(values);
   };
 
+  // getHelper for display in form
   const getHelperText = (touched:any, errors:any) => {
     return (touched && errors ? errors : false)
   }
 
+  // phone regExp
   const phoneRegExp =
     /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
+  // check all validasi required & etc
   const checkoutSchema:any = yup.object().shape({
     userFullName: yup.string().required("required"),
     userType: yup.string().required("required"),
@@ -168,6 +152,8 @@ export default function Users() {
     userEmail: yup.string().email("invalid email").required("required"),
     userPhoneNumber: yup.string().matches(phoneRegExp, "Phone number is not valid").required("required"),
   });
+
+  // function initialValue field from table users
   const initialValues:any = {
     userFullName: "",
     userType:"",
@@ -176,6 +162,15 @@ export default function Users() {
     userPhoneNumber: "",
   };
 
+  // function handler API PUT user
+  const handleEdit = (id: number) => {
+    console.info(`EDIT ${id}`);
+  }
+
+  // function handler API DELETE user
+  const handleDelete = (id: number) => {
+    console.info(`DELETE ${id}`);
+  }
   
   return (
     <Box>
