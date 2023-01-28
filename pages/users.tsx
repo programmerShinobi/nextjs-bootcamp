@@ -2,14 +2,16 @@ import { Dialog, Transition, Listbox } from '@headlessui/react'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { doUsersRequest, doUsersCreate } from '../Redux/Actions/reduceActions';
-import { Box, Button, ButtonGroup, IconButton, useTheme } from "@mui/material"
+import { Box, Button, ButtonGroup, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
-import { isNull } from 'lodash';
+import * as yup from "yup";
 import Input from '@mui/material/Input';
 import { CheckIcon, ChevronUpDownIcon, PlusIcon } from '@heroicons/react/24/solid';
+import TextField from '@mui/material/TextField';
+import { Formik } from 'formik';
 
 export default function Users() {
   // defaine themes
@@ -129,8 +131,11 @@ export default function Users() {
   ];
 
   // define select userType in field users
-  const [selectedAddUserType, setSelectedAddUserType] = useState(userType[0]);
+  const [selectedAddUserType, setSelectedAddUserType] = React.useState('');
 
+  const handleChangeUserType = (event: SelectChangeEvent) => {
+    setSelectedAddUserType(event.target.value);
+  };
 
   
   const handleEdit = (id: number) => {
@@ -142,20 +147,28 @@ export default function Users() {
     console.info(`DELETE ${id}`);
   }
 
+  const handleFormSubmit = (values:any) => {
+      console.log(values);
+  };
 
+  const getHelperText = (touched:any, errors:any) => {
+    return (touched && errors ? errors : false)
+  }
 
+  
   return (
     <Box>
       <p className="text-gray-700 text-3xl mb-16 font-bold">Users</p>
-      <ButtonGroup className="align-middle">
+      <ButtonGroup className="align-middle bg-gray">
       <Button
           type="button"
           onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-normal text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          color="warning"
+          className="rounded-md bg-transparent text-gray-500 border-gray-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       ><PlusIcon width={20} /><span className='text-transparent'>-</span> Add
       </Button>
       </ButtonGroup>
-        <Transition appear show={isOpenAdd} as={Fragment}>
+      <Transition appear show={isOpenAdd} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={closeModal}>
             <Transition.Child
               as={Fragment}
@@ -168,7 +181,6 @@ export default function Users() {
             >
               <div className="fixed inset-0 bg-black bg-opacity-25" />
             </Transition.Child>
-
             <div className="fixed inset-0 overflow-y-auto">
               <div className="flex min-h-full items-center justify-center p-4 text-center">
                 <Transition.Child
@@ -180,70 +192,47 @@ export default function Users() {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel className="w-full max-w-md  transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
+                      className="text-lg font-medium leading-6 text-black"
                     >
                       Add New User
-                    </Dialog.Title>
-                    <form>
-                      <div className="mt-15 bg-inherit">
-                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                            <Input required fullWidth type="text" placeholder="Full Name ..." className="form-control" id="userFullName" onChange={eventHandlerAdd('userFullName')} />
-                        </div>
-                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                          <Listbox value={selectedAddUserType} onChange={setSelectedAddUserType}>
-                            <div className="relative mt-1">
-                              <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                                <span className="block truncate">{selectedAddUserType.name}</span>
-                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                  <ChevronUpDownIcon
-                                    className="h-5 w-5 text-gray-400"
-                                    aria-hidden="true"
-                                  />
-                                </span>
-                              </Listbox.Button>
-                              <Transition
-                                as={Fragment}
-                                leave="transition ease-in duration-100"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                              >
-                                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                  {userType.map((user, userIdx) => (
-                                    <Listbox.Option
-                                      key={userIdx}
-                                      className={({ active }) =>
-                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                          active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
-                                        }`
-                                      }
-                                      value={user}
-                                    >
-                                      {({ selected }) => (
-                                        <>
-                                          <span
-                                            className={`block truncate ${
-                                              selected ? 'font-medium' : 'font-normal'
-                                            }`}
-                                          >
-                                            {user.name}
-                                          </span>
-                                          {selected ? (
-                                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                              <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                            </span>
-                                          ) : null}
-                                        </>
-                                      )}
-                                    </Listbox.Option>
-                                  ))}
-                                </Listbox.Options>
-                              </Transition>
-                            </div>
-                          </Listbox>
-                        </div>
+                  </Dialog.Title>
+                  <br></br>
+                    {/* <form>
+                        <FormControl
+                          fullWidth
+                          variant="filled"
+                          sx={{ m: 1, minWidth: 120 }}
+                        >
+                          <InputLabel id="userFullName">Full Name</InputLabel>
+                          <Input type="text" className="form-control" id="userFullName" onChange={eventHandlerAdd('userFullName')} />
+                        </FormControl>
+                      
+                        <FormControl
+                          fullWidth
+                          variant="filled"
+                          sx={{ m: 1, minWidth: 120 }}
+                        >
+                          <InputLabel id="userType">Type</InputLabel>
+                          <Select
+                            fullWidth 
+                            labelId="userType"
+                            id="userType"
+                            className="form-control"
+                            value={selectedAddUserType}
+                            onChange={handleChangeUserType}
+                          >
+                            <MenuItem value="Select Type">
+                              <em>Select Type ...</em>
+                            </MenuItem>
+                            <MenuItem value='T'>Travel Agent</MenuItem>
+                            <MenuItem value='C'>Company</MenuItem>
+                            <MenuItem value='I'>Individual</MenuItem>
+                          </Select>
+                        </FormControl>
+                        
                         <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
                             <Input required fullWidth aria-required type="text" placeholder="Company Name ..." className="form-control" id="userCompanyName" onChange={eventHandlerAdd('userCompanyName')} />
                         </div>
@@ -253,7 +242,7 @@ export default function Users() {
                         <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
                             <Input required fullWidth aria-required type="text" placeholder="Phone Number ..." className="form-control" id="userPhoneNumber" onChange={eventHandlerAdd('userPhoneNumber')} />
                         </div>
-                      </div>
+                      
 
                     <div className="mt-4 transition-all">
                       <center>
@@ -281,7 +270,93 @@ export default function Users() {
                         </Button>
                       </center>
                       </div>
-                    </form>
+                    </form> */}
+                    <Formik
+                        onSubmit={handleFormSubmit}
+                        initialValues={initialValues}
+                        validationSchema={checkoutSchema}
+                    >
+                        {({
+                            values,
+                            errors,
+                            touched,
+                            handleBlur,
+                            handleChange,
+                            handleSubmit,
+                        }) => (
+                            <form onSubmit={handleSubmit}>
+                                <Box
+                                    display="grid"
+                                    gap="30px"
+                                    gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                                    
+                                >
+                                    <TextField
+                                        color="warning"
+                                        fullWidth
+                                        variant="filled"
+                                        type="text"
+                                        label="First Name"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.userFullName}
+                                        name="userFullName"
+                                        error={!!touched.userFullName && !!errors.userFullName}
+                                        helperText={getHelperText(touched.userFullName, errors.userFullName)}
+                                        sx={{ gridColumn: "span 4" }}
+                                    />
+                                    <TextField
+                                        color="warning"
+                                        fullWidth
+                                        variant="filled"
+                                        type="text"
+                                        label="Company Name"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.userCompanyName}
+                                        name="userCompanyName"
+                                        error={!!touched.userCompanyName && !!errors.userCompanyName}
+                                        helperText={getHelperText(touched.userCompanyName, errors.userCompanyName)}
+                                        sx={{ gridColumn: "span 4" }}
+                                    />
+                                    <TextField
+                                        color="warning"
+                                        fullWidth
+                                        variant="filled"
+                                        type="text"
+                                        label="Email"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.userEmail}
+                                        name="userEmail"
+                                        error={!!touched.userEmail && !!errors.userEmail}
+                                        helperText={getHelperText(touched.userEmail, errors.userEmail)}
+
+                                        sx={{ gridColumn: "span 4" }}
+                                    />
+                                    <TextField
+                                        color="warning"
+                                      fullWidth
+                                      variant="filled"
+                                      type="text"
+                                      label="Phone Number"
+                                      onBlur={handleBlur}
+                                      onChange={handleChange}
+                                      value={values.userPhoneNumber}
+                                      name="userPhoneNumber"
+                                      error={!!touched.userPhoneNumber && !!errors.userPhoneNumber}
+                                      helperText={getHelperText(touched.userPhoneNumber, errors.userPhoneNumber)}
+                                      sx={{ gridColumn: "span 4" }}
+                                    />
+                                </Box>
+                                <Box display="flex" justifyContent="end" mt="20px">
+                                    <Button className="bg-gray-700 text-white" type="submit" color="warning" variant="contained" onClick={addData}>
+                                        Create New User
+                                    </Button>
+                                </Box>
+                            </form>
+                        )}
+                    </Formik>
                   </Dialog.Panel>
                 </Transition.Child>
               </div>
@@ -359,3 +434,22 @@ export default function Users() {
     </Box>
   );
 }
+
+const phoneRegExp =
+    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+
+const checkoutSchema:any = yup.object().shape({
+    userFullName: yup.string().required("required"),
+    userCompanyName: yup.string().required("required"),
+    userEmail: yup.string().email("invalid email").required("required"),
+    userPhoneNumber: yup
+        .string()
+        .matches(phoneRegExp, "Phone number is not valid")
+        .required("required"),
+});
+const initialValues:any = {
+    userFullName: "",
+    userCompanyName: "",
+    userEmail: "",
+    userPhoneNumber: "",
+};
