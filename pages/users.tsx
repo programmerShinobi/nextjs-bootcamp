@@ -47,12 +47,12 @@ export default function Users() {
 
       getActions: (row:any) => [
         <GridActionsCellItem
-          icon={<EditIcon />}
+          icon={<EditIcon color='warning' />}
           label="Edit"
           onClick={() => handleEdit(row.id)}
         />,
         <GridActionsCellItem
-          icon={<DeleteIcon />}
+          icon={<DeleteIcon color='warning' />}
           label="Delete"
           onClick={() => handleDelete(row.id)}
         />,
