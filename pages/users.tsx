@@ -11,11 +11,11 @@ import * as yup from "yup";
 import Input from '@mui/material/Input';
 import { CheckIcon, ChevronUpDownIcon, PlusIcon } from '@heroicons/react/24/solid';
 import TextField from '@mui/material/TextField';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 
 export default function Users() {
-  const router = useRouter();
+  const router:any = useRouter();
   // defaine themes
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -28,7 +28,16 @@ export default function Users() {
   //  dispatch API GET users
   useEffect(() => {
     dispatch(doUsersRequest())
-  },[]);
+  }, []);
+  
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
+    if (refresh) {
+      router.reload();
+    }
+  }, [refresh]);
+  
   
   // setData API GET users
   useEffect(() => {
@@ -121,8 +130,10 @@ export default function Users() {
   const addData = (e: any) => {
     e.preventDefault();
     const successAdd: any = dispatchAdd(doUsersCreate(DataUser));
-    if (successAdd) {
-      router.push('/users');
+    const routeToUsers:any = router.push('/users');
+    router.push('/users');
+    if (successAdd && routeToUsers) {
+      router.reload();
       setIsOpenAdd(false);
     }
     
@@ -171,6 +182,7 @@ export default function Users() {
     const deleteUser: any = dispatch(doDeleteUsers(id));
     if (deleteUser) {
       router.push('/users');
+      router.reload();
     }
   }
   
@@ -233,13 +245,14 @@ export default function Users() {
                           handleChange,
                           handleSubmit,
                       }) => (
-                        <form onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit}>
                           <Box
                             display="grid"
                             gap="30px"
                             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                               
-                          >
+                        >
+                          
                             <TextField
                               color="warning"
                               fullWidth
@@ -323,7 +336,7 @@ export default function Users() {
                                 Create New User
                             </Button>
                           </Box>
-                        </form>
+                        </Form>
                       )}
                     </Formik>
                   </Dialog.Panel>
