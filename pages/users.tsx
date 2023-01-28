@@ -9,35 +9,24 @@ import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import * as yup from "yup";
 import Input from '@mui/material/Input';
-import { CheckIcon, ChevronUpDownIcon, PlusIcon } from '@heroicons/react/24/solid';
+import { PlusIcon } from '@heroicons/react/24/solid';
 import TextField from '@mui/material/TextField';
 import { Form, Formik } from 'formik';
-import { useRouter } from 'next/router';
 
 export default function Users() {
-  const router:any = useRouter();
   // defaine themes
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   // define API GET users
   const [Data, setData] = useState([]);  
-  const users: any = useSelector((state: any) => state.usersReducers.users);
-  const dispatch:any = useDispatch();
+  const users = useSelector((state: any) => state.usersReducers.users);
+  const dispatch = useDispatch();
 
   //  dispatch API GET users
   useEffect(() => {
     dispatch(doUsersRequest())
-  }, []);
-  
-  const [refresh, setRefresh] = useState(false);
-
-  useEffect(() => {
-    if (refresh) {
-      router.reload();
-    }
-  }, [refresh]);
-  
+  },[]); 
   
   // setData API GET users
   useEffect(() => {
@@ -128,20 +117,18 @@ export default function Users() {
 
   // function Add Data API POST users
   const addData = (e: any) => {
-    e.preventDefault();
-    const successAdd: any = dispatchAdd(doUsersCreate(DataUser));
-    const routeToUsers:any = router.push('/users');
-    router.push('/users');
-    if (successAdd && routeToUsers) {
-      router.reload();
-      setIsOpenAdd(false);
+    if (checkoutSchema) {
+      e.preventDefault();
+      dispatchAdd(doUsersCreate(DataUser));
+      dispatch(doUsersRequest())
+      setIsOpenAdd(false)
+    } else {
+      return checkoutSchema()
     }
-    
   }
-
+  
   // function handle submit form add new users (API POST users)
-  const handleFormSubmit = (values:any) => {
-     
+  const handleFormSubmit = (values: any) => {
   };
 
   // getHelper for display in form
@@ -179,11 +166,8 @@ export default function Users() {
   // function handler API DELETE user
   const handleDelete = (id: number) => {
     //  dispatch API DELETE users
-    const deleteUser: any = dispatch(doDeleteUsers(id));
-    if (deleteUser) {
-      router.push('/users');
-      router.reload();
-    }
+    dispatch(doDeleteUsers(id)); 
+    dispatch(doUsersRequest())
   }
   
   return (
@@ -266,6 +250,7 @@ export default function Users() {
                               error={!!touched.userFullName && !!errors.userFullName}
                               helperText={getHelperText(touched.userFullName, errors.userFullName)}
                               sx={{ gridColumn: "span 4" }}
+                              
                             />
                             <Select
                               color="warning"
