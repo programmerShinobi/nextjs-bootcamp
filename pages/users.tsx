@@ -12,8 +12,10 @@ import Input from '@mui/material/Input';
 import { CheckIcon, ChevronUpDownIcon, PlusIcon } from '@heroicons/react/24/solid';
 import TextField from '@mui/material/TextField';
 import { Formik } from 'formik';
+import { useRouter } from 'next/router';
 
 export default function Users() {
+  const router = useRouter();
   // defaine themes
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -26,14 +28,14 @@ export default function Users() {
   //  dispatch API GET users
   useEffect(() => {
     dispatch(doUsersRequest())
-  },[]);
+  });
   
   // setData API GET users
   useEffect(() => {
     if (users) {
       setData(users.results)
     }
-  }, [users]);
+  });
 
   // column API GET users
   const columns = [
@@ -89,12 +91,12 @@ export default function Users() {
   let [isOpenAdd, setIsOpenAdd] = useState(false)
 
   //  function : close modals Add New
-  function closeModal() {
+  function closeModalAdd() {
     setIsOpenAdd(false)
   }
 
   //  function : open modals Add New
-  function openModal() {
+  function openModalAdd() {
     setIsOpenAdd(true)
   }
 
@@ -120,7 +122,8 @@ export default function Users() {
   // function Add Data API POST users
   const addData = (e:any) => {
       e.preventDefault();
-      dispatchAdd(doUsersCreate(DataUser))
+    dispatchAdd(doUsersCreate(DataUser))
+    router.push('/users');
   }
 
   // userType in field users
@@ -171,23 +174,27 @@ export default function Users() {
   const handleDelete = (id: number) => {
     console.info(`DELETE ${id}`);
     //  dispatch API DELETE users
-    dispatch(doDeleteUsers(id));
+    if (typeof id !== 'undefined') {
+      dispatch(doDeleteUsers(id));
+      router.push('/users');
+    }
   }
   
   return (
     <Box>
       <p className="text-gray-700 text-3xl mb-16 font-bold">Users</p>
       <ButtonGroup className="align-middle bg-gray">
-      <Button
-          type="button"
-          onClick={openModal}
-          color="warning"
-          className="rounded-md bg-transparent text-gray-500 border-gray-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-      ><PlusIcon width={20} /><span className='text-transparent'>-</span> Add
-      </Button>
+        <Button
+            type="button"
+            onClick={openModalAdd}
+            color="warning"
+            className="rounded-md bg-transparent text-gray-500 border-gray-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          >
+            <PlusIcon width={20} /><span className='text-transparent'>-</span> Add
+        </Button>
       </ButtonGroup>
       <Transition appear show={isOpenAdd} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Dialog as="div" className="relative z-10" onClose={closeModalAdd}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -218,77 +225,7 @@ export default function Users() {
                       Add New User
                   </Dialog.Title>
                   <br></br>
-                    {/* <form>
-                        <FormControl
-                          fullWidth
-                          variant="filled"
-                          sx={{ m: 1, minWidth: 120 }}
-                        >
-                          <InputLabel id="userFullName">Full Name</InputLabel>
-                          <Input type="text" className="form-control" id="userFullName" onChange={eventHandlerAdd('userFullName')} />
-                        </FormControl>
-                      
-                        <FormControl
-                          fullWidth
-                          variant="filled"
-                          sx={{ m: 1, minWidth: 120 }}
-                        >
-                          <InputLabel id="userType">Type</InputLabel>
-                          <Select
-                            fullWidth 
-                            labelId="userType"
-                            id="userType"
-                            className="form-control"
-                            value={selectedAddUserType}
-                            onChange={handleChangeUserType}
-                          >
-                            <MenuItem value="Select Type">
-                              <em>Select Type ...</em>
-                            </MenuItem>
-                            <MenuItem value='T'>Travel Agent</MenuItem>
-                            <MenuItem value='C'>Company</MenuItem>
-                            <MenuItem value='I'>Individual</MenuItem>
-                          </Select>
-                        </FormControl>
-                        
-                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                            <Input required fullWidth aria-required type="text" placeholder="Company Name ..." className="form-control" id="userCompanyName" onChange={eventHandlerAdd('userCompanyName')} />
-                        </div>
-                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                            <Input required fullWidth aria-required type="email" placeholder="Email ..." className="form-control" id="userEmail" onChange={eventHandlerAdd('userEmail')} />
-                        </div>
-                        <div className="p-6 text-left align-middle shadow-xl transition-all rounded-2xl">
-                            <Input required fullWidth aria-required type="text" placeholder="Phone Number ..." className="form-control" id="userPhoneNumber" onChange={eventHandlerAdd('userPhoneNumber')} />
-                        </div>
-                      
-
-                    <div className="mt-4 transition-all">
-                      <center>
-                        <Button
-                          type="reset"
-                          className="rounded-2xl border border-transparent bg-yellow-100 px-4 py-2 text-sm font-medium text-yellow-900 hover:bg-yellow-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2"
-                        >
-                          Reset!
-                        </Button>
-                        <span className='text-transparent'>- - -</span>
-                        <Button
-                          type="button"
-                          className="rounded-2xl border border-transparent bg-green-100 px-4 py-2 ml-15 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
-                           onClick={addData}
-                        >
-                          Submit!
-                        </Button>
-                        <span className='text-transparent'>- - -</span>
-                        <Button
-                          type="button"
-                          className="rounded-2xl  border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                          onClick={closeModal}
-                        >
-                          Close!
-                        </Button>
-                      </center>
-                      </div>
-                    </form> */}
+                    
                     <Formik
                       onSubmit={handleFormSubmit}
                       initialValues={initialValues}
