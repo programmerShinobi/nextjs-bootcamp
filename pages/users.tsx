@@ -189,24 +189,26 @@ export default function Users() {
                             </div>
                       </div>
 
-                    <div className="mt-4 transition-all row-auto">
+                    <div className="mt-4 transition-all">
                       <center>
                         <Button
                           type="reset"
-                          className="rounded-2xl col-50 border border-transparent bg-yellow-100 px-4 py-2 text-sm font-medium text-yellow-900 hover:bg-yellow-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2"
+                          className="rounded-2xl border border-transparent bg-yellow-100 px-4 py-2 text-sm font-medium text-yellow-900 hover:bg-yellow-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2"
                         >
                           Reset!
                         </Button>
+                        <span className='text-transparent'>- - -</span>
                         <Button
                           type="button"
-                          className="rounded-2xl col-50 ml-auto border border-transparent bg-green-100 px-4 py-2 ml-15 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+                          className="rounded-2xl border border-transparent bg-green-100 px-4 py-2 ml-15 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
                            onClick={addData}
                         >
                           Submit!
                         </Button>
+                        <span className='text-transparent'>- - -</span>
                         <Button
                           type="button"
-                          className="rounded-2xl col-50 border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                          className="rounded-2xl  border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
                           onClick={closeModal}
                         >
                           Close!
