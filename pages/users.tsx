@@ -163,15 +163,14 @@ export default function Users() {
 
   const checkoutSchema:any = yup.object().shape({
     userFullName: yup.string().required("required"),
+    userType: yup.string().required("required"),
     userCompanyName: yup.string().required("required"),
     userEmail: yup.string().email("invalid email").required("required"),
-    userPhoneNumber: yup
-      .string()
-      .matches(phoneRegExp, "Phone number is not valid")
-      .required("required"),
+    userPhoneNumber: yup.string().matches(phoneRegExp, "Phone number is not valid").required("required"),
   });
   const initialValues:any = {
     userFullName: "",
+    userType:"",
     userCompanyName: "",
     userEmail: "",
     userPhoneNumber: "",
@@ -294,90 +293,110 @@ export default function Users() {
                       </div>
                     </form> */}
                     <Formik
-                        onSubmit={handleFormSubmit}
-                        initialValues={initialValues}
-                        validationSchema={checkoutSchema}
+                      onSubmit={handleFormSubmit}
+                      initialValues={initialValues}
+                      validationSchema={checkoutSchema}
                     >
-                        {({
-                            values,
-                            errors,
-                            touched,
-                            handleBlur,
-                            handleChange,
-                            handleSubmit,
-                        }) => (
-                            <form onSubmit={handleSubmit}>
-                                <Box
-                                    display="grid"
-                                    gap="30px"
-                                    gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                                    
-                                >
-                                    <TextField
-                                        color="warning"
-                                        fullWidth
-                                        variant="filled"
-                                        type="text"
-                                        label="First Name"
-                                        onBlur={handleBlur}
-                                        onChange={(event) => {eventHandlerAdd('userFullName')(event); handleChange(event)}}
-                                        value={values.userFullName}
-                                        name="userFullName"
-                                        error={!!touched.userFullName && !!errors.userFullName}
-                                        helperText={getHelperText(touched.userFullName, errors.userFullName)}
-                                        sx={{ gridColumn: "span 4" }}
-                                    />
-                                    <TextField
-                                        color="warning"
-                                        fullWidth
-                                        variant="filled"
-                                        type="text"
-                                        label="Company Name"
-                                        onBlur={handleBlur}
-                                        onChange={(event) => {eventHandlerAdd('userCompanyName')(event); handleChange(event)}}
-                                        value={values.userCompanyName}
-                                        name="userCompanyName"
-                                        error={!!touched.userCompanyName && !!errors.userCompanyName}
-                                        helperText={getHelperText(touched.userCompanyName, errors.userCompanyName)}
-                                        sx={{ gridColumn: "span 4" }}
-                                    />
-                                    <TextField
-                                        color="warning"
-                                        fullWidth
-                                        variant="filled"
-                                        type="email"
-                                        label="Email"
-                                        onBlur={handleBlur}
-                                        onChange={(event) => {eventHandlerAdd('userEmail')(event); handleChange(event)}}
-                                        value={values.userEmail}
-                                        name="userEmail"
-                                        error={!!touched.userEmail && !!errors.userEmail}
-                                        helperText={getHelperText(touched.userEmail, errors.userEmail)}
-
-                                        sx={{ gridColumn: "span 4" }}
-                                    />
-                                    <TextField
-                                        color="warning"
-                                      fullWidth
-                                      variant="filled"
-                                      type="text"
-                                      label="Phone Number"
-                                      onBlur={handleBlur}
-                                      onChange={(event) => {eventHandlerAdd('userPhoneNumber')(event); handleChange(event)}}
-                                      value={values.userPhoneNumber}
-                                      name="userPhoneNumber"
-                                      error={!!touched.userPhoneNumber && !!errors.userPhoneNumber}
-                                      helperText={getHelperText(touched.userPhoneNumber, errors.userPhoneNumber)}
-                                      sx={{ gridColumn: "span 4" }}
-                                    />
-                                </Box>
-                                <Box display="flex" justifyContent="end" mt="20px">
-                                    <Button className="bg-gray-700 text-white" type="submit" color="warning" variant="contained" onClick={addData}>
-                                        Create New User
-                                    </Button>
-                                </Box>
-                            </form>
-                        )}
+                      {({
+                          values,
+                          errors,
+                          touched,
+                          handleBlur,
+                          handleChange,
+                          handleSubmit,
+                      }) => (
+                        <form onSubmit={handleSubmit}>
+                          <Box
+                            display="grid"
+                            gap="30px"
+                            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                              
+                          >
+                            <TextField
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              label="First Name"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerAdd('userFullName')(event); handleChange(event)}}
+                              value={values.userFullName}
+                              name="userFullName"
+                              error={!!touched.userFullName && !!errors.userFullName}
+                              helperText={getHelperText(touched.userFullName, errors.userFullName)}
+                              sx={{ gridColumn: "span 4" }}
+                            />
+                            <Select
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              label="Type"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerAdd('userType')(event); handleChange(event)}}
+                              value={values.userType}
+                              name="userType"
+                              error={!!touched.userType && !!errors.userType}
+                              // helperText={getHelperText(touched.userType, errors.userType)}
+                              sx={{ gridColumn: "span 4" }}
+                            >
+                              <MenuItem value="Select Type">
+                                <em>Select Type ...</em>
+                              </MenuItem>
+                              <MenuItem value='T'>Travel Agent</MenuItem>
+                              <MenuItem value='C'>Company</MenuItem>
+                              <MenuItem value='I'>Individual</MenuItem>
+                            </Select>
+                            <TextField
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              label="Company Name"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerAdd('userCompanyName')(event); handleChange(event)}}
+                              value={values.userCompanyName}
+                              name="userCompanyName"
+                              error={!!touched.userCompanyName && !!errors.userCompanyName}
+                              helperText={getHelperText(touched.userCompanyName, errors.userCompanyName)}
+                              sx={{ gridColumn: "span 4" }}
+                            />
+                            <TextField
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="email"
+                              label="Email"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerAdd('userEmail')(event); handleChange(event)}}
+                              value={values.userEmail}
+                              name="userEmail"
+                              error={!!touched.userEmail && !!errors.userEmail}
+                              helperText={getHelperText(touched.userEmail, errors.userEmail)}
+                              sx={{ gridColumn: "span 4" }}
+                            />
+                            <TextField
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              label="Phone Number"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerAdd('userPhoneNumber')(event); handleChange(event)}}
+                              value={values.userPhoneNumber}
+                              name="userPhoneNumber"
+                              error={!!touched.userPhoneNumber && !!errors.userPhoneNumber}
+                              helperText={getHelperText(touched.userPhoneNumber, errors.userPhoneNumber)}
+                              sx={{ gridColumn: "span 4" }}
+                            />
+                          </Box>
+                          <Box display="flex" justifyContent="end" mt="20px">
+                            <Button className="bg-gray-700 text-white" type="submit" color="warning" variant="contained" onClick={addData}>
+                                Create New User
+                            </Button>
+                          </Box>
+                        </form>
+                      )}
                     </Formik>
                   </Dialog.Panel>
                 </Transition.Child>
