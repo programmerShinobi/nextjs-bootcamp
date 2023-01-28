@@ -361,7 +361,7 @@ export default function Users() {
             color: `${colors.greenAccent[200]}`,
           },
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
+            color: `${colors.redAccent[500]} !important`,
           },
         }}
       >
