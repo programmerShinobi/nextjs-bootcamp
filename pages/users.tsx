@@ -22,17 +22,17 @@ export default function Users() {
 
   // define API GET users
   const [Data, setData] = useState([]);  
-  const users = useSelector((state: any) => state.usersReducers.users);
-  const dispatch = useDispatch();
+  const users: any = useSelector((state: any) => state.usersReducers.users);
+  const dispatch:any = useDispatch();
 
   //  dispatch API GET users
   useEffect(() => {
     dispatch(doUsersRequest())
-  });
+  },[]);
   
   // setData API GET users
   useEffect(() => {
-    if (users) {
+    if (users && users.results){
       setData(users.results)
     }
   });
@@ -115,27 +115,22 @@ export default function Users() {
   // function handler API POST users
   const eventHandlerAdd = (data:any) => (event:any) => {
       setDataUser({...DataUser, [data] : event.target.value});
-
-      console.log(DataUser)
   }
 
   // function Add Data API POST users
-  const addData = (e:any) => {
-      e.preventDefault();
-    dispatchAdd(doUsersCreate(DataUser))
-    router.push('/users');
+  const addData = (e: any) => {
+    e.preventDefault();
+    const successAdd: any = dispatchAdd(doUsersCreate(DataUser));
+    if (successAdd) {
+      router.push('/users');
+      setIsOpenAdd(false);
+    }
+    
   }
-
-  // userType in field users
-  const userType = [
-    { name: 'T' },
-    { name: 'C' },
-    { name: 'I' },
-  ];
 
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values:any) => {
-      console.log(values);
+     
   };
 
   // getHelper for display in form
@@ -172,10 +167,9 @@ export default function Users() {
 
   // function handler API DELETE user
   const handleDelete = (id: number) => {
-    console.info(`DELETE ${id}`);
     //  dispatch API DELETE users
-    if (typeof id !== 'undefined') {
-      dispatch(doDeleteUsers(id));
+    const deleteUser: any = dispatch(doDeleteUsers(id));
+    if (deleteUser) {
       router.push('/users');
     }
   }
@@ -188,7 +182,7 @@ export default function Users() {
             type="button"
             onClick={openModalAdd}
             color="warning"
-            className="rounded-md bg-transparent text-gray-500 border-gray-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            className="rounded-md bg-warning text-warning-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
           >
             <PlusIcon width={20} /><span className='text-transparent'>-</span> Add
         </Button>
