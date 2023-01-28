@@ -8,7 +8,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../theme";
 import * as yup from "yup";
-import Input from '@mui/material/Input';
 import { PlusIcon } from '@heroicons/react/24/solid';
 import TextField from '@mui/material/TextField';
 import { Form, Formik } from 'formik';
@@ -394,7 +393,6 @@ export default function Users() {
             columns={columns}
             getRowId={(row: any) => row.userId}
             components={{ Toolbar: GridToolbar }} 
-            
           />
         }
       </Box>
