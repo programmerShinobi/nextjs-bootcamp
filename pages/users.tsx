@@ -393,7 +393,7 @@ export default function Users() {
                             </Box>
                             <Box display="flex" pl="100px">
                               <Button
-                                onClick={closeModalEdit}
+                                onClick={closeModalAdd}
                                 type="button"
                                 color="error"
                                 className="rounded-md bg-red-100 text-red-500 border-error-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
