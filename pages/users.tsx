@@ -188,19 +188,21 @@ export default function Users() {
   const handleEdit = (id: number) => {
     const displayedPayload:any = dispatchEdit(doUserRequest(id));
     if (displayedPayload.payload == id) {
-      const displayedUser: any = user.results;
-      if (displayedUser) {
-        if (displayedUser.userId == id) {
-          openModalEdit();
-          setDataUserEdit({
-            ...DataUserEdit,
-            userId: displayedUser.userId,
-            userFullName: displayedUser.userFullName,
-            userCompanyName: displayedUser.userCompanyName,
-            userType: displayedUser.userType,
-            userEmail: displayedUser.userEmail,
-            userPhoneNumber: displayedUser.userPhoneNumber,
-          });
+      if (user) {
+        const displayedUser: any = user.results;
+        if (displayedUser) {
+          if (displayedUser.userId == id) {
+            openModalEdit();
+            setDataUserEdit({
+              ...DataUserEdit,
+              userId: displayedUser.userId,
+              userFullName: displayedUser.userFullName,
+              userCompanyName: displayedUser.userCompanyName,
+              userType: displayedUser.userType,
+              userEmail: displayedUser.userEmail,
+              userPhoneNumber: displayedUser.userPhoneNumber,
+            });
+          }
         }
       }
     }
@@ -262,8 +264,10 @@ export default function Users() {
   //   }
   // };
 
+  
   // function handler API PUT users
-  const eventHandlerEdit = (data:any) => (event:any) => {
+  
+  const eventHandlerEdit = (data: any) => (event: any) => {
       setDataUserEdit({...DataUserEdit, [data] : event.target.value});
   }
 

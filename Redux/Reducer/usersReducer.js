@@ -49,16 +49,30 @@ function usersReducers(state = initialState, action) {
     }
 }
 
+// const applyUpdateUsers = (state, action) => {
+//     console.info(action)
+//     if (state.user.results.userId) {
+//         return {
+//             ...state,
+//             ...state.user.results
+//         }
+//     } else {
+//         return state
+//     }
+// }
+
 const applyUpdateUsers = (state, action) => {
-    // console.info(action)
-    if (state.user.results.userId) {
-        return {
-            ...state,
-            ...action.payload
+    // action.payload = state.user.results
+    return state.users.results.map((users) => {
+        if (users.userId === state.user.results.userId) {
+            return {
+                ...state,
+                ...state.user.results
+            }
+        } else {
+            return state
         }
-    } else {
-        return state
-    }
+    });
 }
 
 

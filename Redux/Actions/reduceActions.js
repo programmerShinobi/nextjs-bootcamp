@@ -72,7 +72,7 @@ export const doUpdateUsers = (id, payload) => {
 }
 
 export const doUpdateUsersSucceed = (payload) => { // undefined
-    // console.info(payload) // undefined
+    console.info(payload)
     return {
         type: ActionType.UPDATE_USERS_SUCCEED,
         payload

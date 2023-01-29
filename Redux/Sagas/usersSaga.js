@@ -34,10 +34,9 @@ function* handleAddUsers(action) {
 }
 
 function* handleUpdateUsers(action) {
-    // console.info(action.payload)
     try {
-        const result = yield call(ReduceService.update(action.payload.userId, action.payload), action.payload);
-        yield put(doUpdateUsersSucceed(result.data));
+        const result = yield call(ReduceService.update, action.payload);
+        yield put(doUpdateUsersSucceed(result));
         console.info(result);
     }
     catch (error) {
