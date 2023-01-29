@@ -20,7 +20,7 @@ export default function Users() {
   const colors = tokens(theme.palette.mode);
 
   // define API GET users
-  const [Data, setData] = useState([]);  
+  const [Data, setData]:any = useState([]);  
   const users = useSelector((state: any) => state.usersReducers.users);
   const dispatch = useDispatch();
 
@@ -185,12 +185,19 @@ export default function Users() {
 
   // function handler API PUT user
   const handleEdit = (id: number) => {
-    openModalEdit();
-    dispatch(doUserRequest(id));
+    const displayedPayload:any = dispatch(doUserRequest(id));
     // let { messages, results }:any = user;
     // let resultUser:any = user.results;
     // let { userCompanyName,userEmail,userFullName, userId, userIsverified,userModifiedDate, userPhoneNumber, userType}:any = resultUser;
-    console.info(user)
+    if (displayedPayload.payload == id) {
+      const displayedUser: any = user.results;
+      if (displayedUser) {
+        if (displayedUser.userId == id) {
+          console.info(displayedUser.userId);
+          openModalEdit();
+        }
+      }
+    }
 
     // let FullName = resultUser.userFullName;
     // let CompanyName = resultUser.userCompanyName;

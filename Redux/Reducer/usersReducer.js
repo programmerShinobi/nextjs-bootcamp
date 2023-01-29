@@ -21,7 +21,6 @@ function usersReducers(state = initialState, action) {
                 ...state,
                 user: action.payload
             }
-        // return applyGetUser(state, action);
 
         case ActionType.ADD_USERS:
             return { ...state };
@@ -67,7 +66,7 @@ const applyUpdateUsers = (state, action) => {
 const applyGetUser = (state, action) => {
 
     return state.user.map((users) => {
-        if (users.Id === action.payload.userId) {
+        if (users.Id == action.payload.userId) {
             return {
                 ...state,
                 ...action.payload
