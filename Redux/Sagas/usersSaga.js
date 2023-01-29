@@ -34,10 +34,11 @@ function* handleAddUsers(action) {
 }
 
 function* handleUpdateUsers(action) {
-    console.info(action.payload)
+    // console.info(action.payload)
     try {
-        const result = yield call(ReduceService.update(), action.payload);
+        const result = yield call(ReduceService.update(action.payload.userId, action.payload), action.payload);
         yield put(doUpdateUsersSucceed(result.data));
+        console.info(result);
     }
     catch (error) {
         yield put(doUpdateUsersFailed(error));

@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import { Form, Formik, ErrorMessage, Field, FieldArray } from 'formik';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import SaveIcon from '@mui/icons-material/Save';
+import Input from '@mui/material/Input';
 
 export default function Users() {
   // defaine themes
@@ -118,6 +119,7 @@ export default function Users() {
   
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
+    
     setSubmitting(true);
     dispatchAdd(doUsersCreate(values));
     dispatch(doUsersRequest());
@@ -144,7 +146,8 @@ export default function Users() {
   });
 
   // function initialValue field from table users
-  const initialValues:any = {
+  const initialValues: any = {
+    userId:null,
     userFullName: "",
     userType:"",
     userCompanyName: "",
@@ -187,7 +190,6 @@ export default function Users() {
       const displayedUser: any = user.results;
       if (displayedUser) {
         if (displayedUser.userId == id) {
-          // console.info(displayedUser.userId);
           openModalEdit();
           setDataUserEdit({
             ...DataUserEdit,
@@ -525,6 +527,10 @@ export default function Users() {
                             gap="30px"
                             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                           >
+                            <Input
+                            hidden
+                            value={values.userId=DataUserEdit.userId}
+                            />
                             <TextField
                               color="warning"
                               fullWidth
