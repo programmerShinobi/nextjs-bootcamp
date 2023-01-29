@@ -30,10 +30,8 @@ const create = async (data) => {
 
 const update = async (data) => {
     const id = parseInt(data.userId);
-    console.info(id)
     try {
         const result = await axios.put(`/users/${id}`, data);
-        console.info(result)
         return result;
     } catch (error) {
         return error.message;

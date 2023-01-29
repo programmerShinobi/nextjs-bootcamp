@@ -206,67 +206,9 @@ export default function Users() {
         }
       }
     }
-
-    // let { messages, results }:any = user;
-    // let resultUser:any = user.results;
-    // let { userCompanyName,userEmail,userFullName, userId, userIsverified,userModifiedDate, userPhoneNumber, userType}:any = resultUser;
-    // let FullName = resultUser.userFullName;
-    // let CompanyName = resultUser.userCompanyName;
-    // let Email = resultUser.userEmail;
-    // let PhoneNumber = resultUser.userPhoneNumber;
-    // let Type = resultUser.userType;
-    // setDataUserEdit({
-    //   ...DataUserEdit,
-    //   userFullName: FullName,
-    //   userCompanyName: CompanyName,
-    //   userEmail: Email,
-    //   userPhoneNumber: PhoneNumber,
-    //   userType: Type
-    // });
   }
-
-  // const handleEdit = (id: number) => {
-  //   let lastClick = 0;
-  //   const displayedPayload: any = dispatch(doUserRequest(id));
-  //   if (displayedPayload.payload == id) {
-  //     const displayedUser: any = user.results;
-  //     if (displayedUser) {
-  //       if (displayedUser.userId == id) {
-  //         console.info(displayedUser.userId);
-  //         const currentTime = new Date().getTime();
-  //         if (currentTime - lastClick < 10) {
-  //           openModalEdit();
-  //         }
-  //         lastClick = currentTime;
-  //       }
-  //     }
-  //   }
-  // };
-
-  // const handleEdit = (id: number) => {
-  //   let clickCount = 0;
-  //   const displayedPayload: any = dispatch(doUserRequest(id));
-  //   if (displayedPayload.payload == id) {
-  //     const displayedUser: any = user.results;
-  //     if (displayedUser) {
-  //       if (displayedUser.userId == id) {
-  //         console.info(displayedUser.userId);
-  //         clickCount++;
-  //         if (clickCount === 2) {
-  //           openModalEdit();
-  //         } else {
-  //           setTimeout(() => {
-  //             clickCount = 0;
-  //           }, 10);
-  //         }
-  //       }
-  //     }
-  //   }
-  // };
-
   
   // function handler API PUT users
-  
   const eventHandlerEdit = (data: any) => (event: any) => {
       setDataUserEdit({...DataUserEdit, [data] : event.target.value});
   }
@@ -279,7 +221,6 @@ export default function Users() {
     setIsOpenEdit(false);
     setSubmitting(false);
   };
-
 
   const dispatchDelete = useDispatch();
   
@@ -563,9 +504,7 @@ export default function Users() {
                                 onChange={(event) => {eventHandlerEdit('userType')(event); handleChange(event)}}
                                 value={values.userType=DataUserEdit.userType}
                                 name="userType"
-                                
-                                // helperText={getHelperText(touched.userFullName, errors.userFullName)}
-                            >
+                              >
                                 <MenuItem value=''><em>none</em></MenuItem>
                                 <MenuItem value='T'>Travel Agent</MenuItem>
                                 <MenuItem value='C'>Company</MenuItem>
