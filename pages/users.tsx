@@ -187,12 +187,35 @@ export default function Users() {
   const handleEdit = (id: number) => {
     openModalEdit();
     dispatch(doUserRequest(id));
+    let { messages, results }:any = user;
+    let resultUser = user.results;
     let {
-        messages,
-        results
-    } = user;
-    console.info(user.results)
+      userCompanyName,
+      userEmail,
+      userFullName,
+      userId,
+      userIsverified,
+      userModifiedDate,
+      userPhoneNumber,
+      userType
+    }:any = resultUser;
+    console.info(resultUser)
+
+    let FullName = resultUser.userFullName;
+    let CompanyName = resultUser.userCompanyName;
+    let Email = resultUser.userEmail;
+    let PhoneNumber = resultUser.userPhoneNumber;
+    let Type = resultUser.userType;
     
+    setDataUserEdit({
+      ...DataUserEdit,
+      userFullName: FullName,
+      userCompanyName: CompanyName,
+      userEmail: Email,
+      userPhoneNumber: PhoneNumber,
+      userType: Type
+    });
+
   }
 
   // function handler API PUT users

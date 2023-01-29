@@ -17,7 +17,6 @@ function* handleUser(action) {
     try {
         const result = yield call(ReduceService.getId, action.payload);
         yield put(doUserRequestSucceed(result.data));
-        // console.info(result.data)
     }
     catch (error) {
         yield put(doUserRequestFailed(error));
