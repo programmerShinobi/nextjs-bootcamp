@@ -63,14 +63,16 @@ export const doAddUsersFailed = (payload) => {
     }
 }
 
-export const doUpdateUsers = (payload) => {
+export const doUpdateUsers = (id, payload) => {
     return {
         type: ActionType.UPDATE_USERS,
+        id,
         payload
     }
 }
 
-export const doUpdateUsersSucceed = (payload) => {
+export const doUpdateUsersSucceed = (payload) => { // undefined
+    // console.info(payload) // undefined
     return {
         type: ActionType.UPDATE_USERS_SUCCEED,
         payload

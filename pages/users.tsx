@@ -151,12 +151,7 @@ export default function Users() {
     userEmail: "",
     userPhoneNumber: "",
   };
-
-  // define API GET users
-  // const [DataEdit, setDataEdit] = useState([]);  
-  // const user = useSelector((state: any) => state.usersReducers.users);
-  
-  
+ 
   const dispatchEdit = useDispatch();
 
   // useState : modals Edit user
@@ -192,7 +187,7 @@ export default function Users() {
       const displayedUser: any = user.results;
       if (displayedUser) {
         if (displayedUser.userId == id) {
-          console.info(displayedUser.userId);
+          // console.info(displayedUser.userId);
           openModalEdit();
           setDataUserEdit({
             ...DataUserEdit,
@@ -272,18 +267,19 @@ export default function Users() {
   // function handle submit form edit users (API POST users)
   const handleFormSubmitEdit = (values: any, { setSubmitting }: any) => {
     setSubmitting(true);
-    const ediSuccess: any = dispatchEdit(doUpdateUsers(values));
-    if (ediSuccess) {
-      dispatch(doUsersRequest());
-      setIsOpenEdit(false);
-      setSubmitting(false);
-    }
+    dispatchEdit(doUpdateUsers(DataUserEdit.userId, values));
+    dispatch(doUsersRequest());
+    setIsOpenEdit(false);
+    setSubmitting(false);
   };
 
+
+  const dispatchDelete = useDispatch();
+  
   // function handler API DELETE user
   const handleDelete = (id: number) => {
     //  dispatch API DELETE users
-    dispatch(doDeleteUsers(id)); 
+    dispatchDelete(doDeleteUsers(id)); 
     dispatch(doUsersRequest())
   }
   

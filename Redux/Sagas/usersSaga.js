@@ -34,8 +34,9 @@ function* handleAddUsers(action) {
 }
 
 function* handleUpdateUsers(action) {
+    console.info(action.payload)
     try {
-        const result = yield call(ReduceService.update, action.payload);
+        const result = yield call(ReduceService.update(), action.payload);
         yield put(doUpdateUsersSucceed(result.data));
     }
     catch (error) {

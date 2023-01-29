@@ -50,17 +50,16 @@ function usersReducers(state = initialState, action) {
 }
 
 const applyUpdateUsers = (state, action) => {
-
-    return state.users.map((users) => {
-        if (users.Id === action.payload.userId) {
-            return {
-                ...state,
-                ...action.payload
-            }
-        } else {
-            return state
+    // console.info(action)
+    if (state.user.results.userId) {
+        return {
+            ...state,
+            ...action.payload
         }
-    });
+    } else {
+        return state
+    }
 }
+
 
 export default usersReducers
