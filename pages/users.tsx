@@ -2,7 +2,7 @@ import { Dialog, Transition, Listbox } from '@headlessui/react'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { doUsersRequest, doUserRequest, doUsersCreate, doDeleteUsers, doUpdateUsers } from '../Redux/Actions/reduceActions';
-import { Box, Button, ButtonGroup, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
+import { Box, Button, ButtonGroup, FormControl, Grid, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
@@ -181,7 +181,6 @@ export default function Users() {
     setIsOpenEdit(true);
   }
   
-
   const user = useSelector((state: any) => state.usersReducers.user);
 
   // function handler API PUT user
@@ -269,15 +268,6 @@ export default function Users() {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="w-full max-w-md  transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <Box display="flex" justifyContent="end">
-                      <Button
-                        onClick={closeModalAdd}
-                        type="button"
-                        color="error"
-                        className="rounded-md bg-red-100 text-red-500 border-error-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                          <XMarkIcon width={20} height={20}/>
-                      </Button>
-                    </Box>
                     <Dialog.Title
                       as="h3"
                       className="text-lg font-medium leading-6 text-black"
@@ -385,7 +375,7 @@ export default function Users() {
                             />
                           </Box>
                           <Box display="flex" justifyContent="center" mt="20px">
-                            <Box display="flex"  mx="20px">
+                            <Box display="flex">
                             <Button
                               type="reset"
                               color="warning"
@@ -402,7 +392,15 @@ export default function Users() {
                               <SaveIcon width={15} height={15} />
                             </Button>
                             </Box>
-                            
+                            <Box display="flex">
+                              <Button
+                                onClick={closeModalEdit}
+                                type="button"
+                                color="error"
+                                className="rounded-md bg-red-100 text-red-500 border-error-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                  <XMarkIcon width={20} height={20}/>
+                              </Button>
+                            </Box>
                           </Box>
                         </Form>
                       )}
@@ -437,19 +435,10 @@ export default function Users() {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md  transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <Box display="flex" justifyContent="end">
-                      <Button
-                        onClick={closeModalEdit}
-                        type="button"
-                        color="error"
-                        className="rounded-md bg-red-100 text-red-500 border-error-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                          <XMarkIcon width={20} height={20}/>
-                      </Button>
-                    </Box>
+                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-black"
+                    className="text-lg font-medium leading-6 text-black"
                     >
                       Edit User
                     </Dialog.Title>
@@ -473,8 +462,9 @@ export default function Users() {
                             gap="30px"
                             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                           >
-                            <Input
+                          <Input
                             hidden
+                            type='hidden'
                             value={values.userId=DataUserEdit.userId}
                             />
                             <TextField
@@ -510,7 +500,7 @@ export default function Users() {
                                 <MenuItem value='C'>Company</MenuItem>
                                 <MenuItem value='I'>Individual</MenuItem>
                             </Select>
-                           {!!touched.userType && !!errors.userType && <span className='text-red-600 text-xs pt-1 pl-4'>{getHelperText(touched.userType, errors.userType)}</span>}
+                            {!!touched.userType && !!errors.userType && <span className='text-red-600 text-xs pt-1 pl-4'>{getHelperText(touched.userType, errors.userType)}</span>}
                             </FormControl>
                             <TextField
                               color="warning"
@@ -556,24 +546,32 @@ export default function Users() {
                             />
                           </Box>
                           <Box display="flex" justifyContent="center" mt="20px">
-                            <Box display="flex"  mx="20px">
-                            <Button
-                              type="reset"
-                              color="warning"
-                              className="rounded-md bg-yellow-100 text-yellow-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                                <RefreshIcon width={15} height={15}/>
-                            </Button>
+                            <Box display="flex">
+                              <Button
+                                type="reset"
+                                color="warning"
+                                className="rounded-md bg-yellow-100 text-yellow-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                  <RefreshIcon width={15} height={15}/>
+                              </Button>
                             </Box>
                             <Box display="flex">
-                            <Button
-                              // onClick={addData}
-                              type="submit"
-                              color="success"
-                              className="rounded-md bg-green-100 text-green-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                              <SaveIcon width={15} height={15} />
-                            </Button>
+                              <Button
+                                // onClick={addData}
+                                type="submit"
+                                color="success"
+                                className="rounded-md bg-green-100 text-green-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                <SaveIcon width={15} height={15} />
+                              </Button>
                             </Box>
-                            
+                            <Box display="flex">
+                              <Button
+                                onClick={closeModalEdit}
+                                type="button"
+                                color="error"
+                                className="rounded-md bg-red-100 text-red-500 border-error-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                  <XMarkIcon width={20} height={20}/>
+                              </Button>
+                            </Box>
                           </Box>
                         </Form>
                       )}
