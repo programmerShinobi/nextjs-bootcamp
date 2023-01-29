@@ -181,21 +181,18 @@ export default function Users() {
   
 
   const user = useSelector((state: any) => state.usersReducers.user);
-  
+
+
   // function handler API PUT user
   const handleEdit = (id: number) => {
     openModalEdit();
     dispatch(doUserRequest(id));
-    console.info(user);
-    if (user && user.resulst) {
-      console.info(user.results);
-    }
-    // setDataUser({
-    //     ...DataUserEdit,
-    //     userId : user.userId,
-    //     userFullName : user.userFullName,
-    //     password : user.password
-    // })
+    let {
+        messages,
+        results
+    } = user;
+    console.info(user.results)
+    
   }
 
   // function handler API PUT users
