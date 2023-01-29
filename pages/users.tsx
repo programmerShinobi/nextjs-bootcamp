@@ -1,7 +1,7 @@
 import { Dialog, Transition, Listbox } from '@headlessui/react'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { doUsersRequest, doUserRequest, doUsersCreate, doDeleteUsers } from '../Redux/Actions/reduceActions';
+import { doUsersRequest, doUserRequest, doUsersCreate, doDeleteUsers, doUpdateUsers } from '../Redux/Actions/reduceActions';
 import { Box, Button, ButtonGroup, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -155,7 +155,9 @@ export default function Users() {
   // define API GET users
   // const [DataEdit, setDataEdit] = useState([]);  
   // const user = useSelector((state: any) => state.usersReducers.users);
-  // const dispatchEdit = useDispatch();
+  
+  
+  const dispatchEdit = useDispatch();
 
   // useState : modals Edit user
   let [isOpenEdit, setIsOpenEdit] = useState(false)
@@ -166,12 +168,13 @@ export default function Users() {
   }
 
     // define useState API POST users
-  const [DataUserEdit, setDataUserEdit] = useState({
+  let [DataUserEdit, setDataUserEdit] = useState({
+    userId: null,
     userFullName: null,
     userCompanyName: null,
     userType: null,
     userEmail: null,
-    userPhoneNumber:  null,
+    userPhoneNumber: null,
   })
 
   //  function : open modals Edit user
@@ -182,29 +185,36 @@ export default function Users() {
 
   const user = useSelector((state: any) => state.usersReducers.user);
 
-
   // function handler API PUT user
   const handleEdit = (id: number) => {
-    const displayedPayload:any = dispatch(doUserRequest(id));
-    // let { messages, results }:any = user;
-    // let resultUser:any = user.results;
-    // let { userCompanyName,userEmail,userFullName, userId, userIsverified,userModifiedDate, userPhoneNumber, userType}:any = resultUser;
+    const displayedPayload:any = dispatchEdit(doUserRequest(id));
     if (displayedPayload.payload == id) {
       const displayedUser: any = user.results;
       if (displayedUser) {
         if (displayedUser.userId == id) {
           console.info(displayedUser.userId);
           openModalEdit();
+          setDataUserEdit({
+            ...DataUserEdit,
+            userId: displayedUser.userId,
+            userFullName: displayedUser.userFullName,
+            userCompanyName: displayedUser.userCompanyName,
+            userType: displayedUser.userType,
+            userEmail: displayedUser.userEmail,
+            userPhoneNumber: displayedUser.userPhoneNumber,
+          });
         }
       }
     }
-
+    
+    // let { messages, results }:any = user;
+    // let resultUser:any = user.results;
+    // let { userCompanyName,userEmail,userFullName, userId, userIsverified,userModifiedDate, userPhoneNumber, userType}:any = resultUser;
     // let FullName = resultUser.userFullName;
     // let CompanyName = resultUser.userCompanyName;
     // let Email = resultUser.userEmail;
     // let PhoneNumber = resultUser.userPhoneNumber;
     // let Type = resultUser.userType;
-    
     // setDataUserEdit({
     //   ...DataUserEdit,
     //   userFullName: FullName,
@@ -213,13 +223,62 @@ export default function Users() {
     //   userPhoneNumber: PhoneNumber,
     //   userType: Type
     // });
-
   }
+
+  // const handleEdit = (id: number) => {
+  //   let lastClick = 0;
+  //   const displayedPayload: any = dispatch(doUserRequest(id));
+  //   if (displayedPayload.payload == id) {
+  //     const displayedUser: any = user.results;
+  //     if (displayedUser) {
+  //       if (displayedUser.userId == id) {
+  //         console.info(displayedUser.userId);
+  //         const currentTime = new Date().getTime();
+  //         if (currentTime - lastClick < 10) {
+  //           openModalEdit();
+  //         }
+  //         lastClick = currentTime;
+  //       }
+  //     }
+  //   }
+  // };
+
+  // const handleEdit = (id: number) => {
+  //   let clickCount = 0;
+  //   const displayedPayload: any = dispatch(doUserRequest(id));
+  //   if (displayedPayload.payload == id) {
+  //     const displayedUser: any = user.results;
+  //     if (displayedUser) {
+  //       if (displayedUser.userId == id) {
+  //         console.info(displayedUser.userId);
+  //         clickCount++;
+  //         if (clickCount === 2) {
+  //           openModalEdit();
+  //         } else {
+  //           setTimeout(() => {
+  //             clickCount = 0;
+  //           }, 10);
+  //         }
+  //       }
+  //     }
+  //   }
+  // };
 
   // function handler API PUT users
   const eventHandlerEdit = (data:any) => (event:any) => {
-      setDataUserEdit({...DataUser, [data] : event.target.value});
+      setDataUserEdit({...DataUserEdit, [data] : event.target.value});
   }
+
+  // function handle submit form edit users (API POST users)
+  const handleFormSubmitEdit = (values: any, { setSubmitting }: any) => {
+    setSubmitting(true);
+    const ediSuccess: any = dispatchEdit(doUpdateUsers(values));
+    if (ediSuccess) {
+      dispatch(doUsersRequest());
+      setIsOpenEdit(false);
+      setSubmitting(false);
+    }
+  };
 
   // function handler API DELETE user
   const handleDelete = (id: number) => {
@@ -336,7 +395,7 @@ export default function Users() {
                                 <MenuItem value='C'>Company</MenuItem>
                                 <MenuItem value='I'>Individual</MenuItem>
                             </Select>
-                           {!!touched.userType && !!errors.userType && <span className='text-red-600 text-xs pt-1 pl-4'>{getHelperText(touched.userType, errors.userType)}</span>}
+                            {!!touched.userType && !!errors.userType && <span className='text-red-600 text-xs pt-1 pl-4'>{getHelperText(touched.userType, errors.userType)}</span>}
                             </FormControl>
                             <TextField
                               color="warning"
@@ -411,7 +470,7 @@ export default function Users() {
           </Dialog>
       </Transition>
       <Transition appear show={isOpenEdit} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModalAdd}>
+          <Dialog as="div" className="relative z-10" onClose={closeModalEdit}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -452,7 +511,7 @@ export default function Users() {
                     </Dialog.Title>
                     <br></br>
                     <Formik
-                      onSubmit={handleFormSubmit}
+                      onSubmit={handleFormSubmitEdit}
                       initialValues={initialValues}
                       validationSchema={checkoutSchema}
                     >
@@ -478,7 +537,7 @@ export default function Users() {
                               label="First Name"
                               onBlur={handleBlur}
                               onChange={(event) => {eventHandlerEdit('userFullName')(event); handleChange(event)}}
-                              value={values.userFullName}
+                              value={values.userFullName=DataUserEdit.userFullName}                            
                               name="userFullName"
                               error={!!touched.userFullName && !!errors.userFullName}
                               helperText={getHelperText(touched.userFullName, errors.userFullName)}
@@ -495,7 +554,7 @@ export default function Users() {
                                 label="Type"
                                 onBlur={handleBlur}                             
                                 onChange={(event) => {eventHandlerEdit('userType')(event); handleChange(event)}}
-                                value={values.userType}
+                                value={values.userType=DataUserEdit.userType}
                                 name="userType"
                                 
                                 // helperText={getHelperText(touched.userFullName, errors.userFullName)}
@@ -515,7 +574,7 @@ export default function Users() {
                               label="Company Name"
                               onBlur={handleBlur}
                               onChange={(event) => {eventHandlerEdit('userCompanyName')(event); handleChange(event)}}
-                              value={values.userCompanyName}
+                              value={values.userCompanyName=DataUserEdit.userCompanyName}
                               name="userCompanyName"
                               error={!!touched.userCompanyName && !!errors.userCompanyName}
                               helperText={getHelperText(touched.userCompanyName, errors.userCompanyName)}
@@ -529,7 +588,7 @@ export default function Users() {
                               label="Email"
                               onBlur={handleBlur}
                               onChange={(event) => {eventHandlerEdit('userEmail')(event); handleChange(event)}}
-                              value={values.userEmail}
+                              value={values.userEmail=DataUserEdit.userEmail}
                               name="userEmail"
                               error={!!touched.userEmail && !!errors.userEmail}
                               helperText={getHelperText(touched.userEmail, errors.userEmail)}
@@ -543,7 +602,7 @@ export default function Users() {
                               label="Phone Number"
                               onBlur={handleBlur}
                               onChange={(event) => {eventHandlerEdit('userPhoneNumber')(event); handleChange(event)}}
-                              value={values.userPhoneNumber}
+                              value={values.userPhoneNumber=DataUserEdit.userPhoneNumber}
                               name="userPhoneNumber"
                               error={!!touched.userPhoneNumber && !!errors.userPhoneNumber}
                               helperText={getHelperText(touched.userPhoneNumber, errors.userPhoneNumber)}
