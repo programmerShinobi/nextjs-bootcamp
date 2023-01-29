@@ -10,7 +10,7 @@ const getAll = async () => {
     }
 }
 
-const getid = async (id) => {
+const getId = async (id) => {
     try {
         const result = await axios.get(`/users/${id}`);
         return result;
@@ -54,7 +54,7 @@ const removeAll = () => {
 
 const ReduceService = {
     getAll,
-    getid,
+    getId,
     create,
     update,
     remove

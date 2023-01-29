@@ -1,7 +1,7 @@
 import { Dialog, Transition, Listbox } from '@headlessui/react'
 import React, { useState, useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { doUsersRequest, doUsersCreate, doDeleteUsers } from '../Redux/Actions/reduceActions';
+import { doUsersRequest, doUserRequest, doUsersCreate, doDeleteUsers } from '../Redux/Actions/reduceActions';
 import { Box, Button, ButtonGroup, FormControl, IconButton, InputLabel, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -115,18 +115,6 @@ export default function Users() {
   const eventHandlerAdd = (data:any) => (event:any) => {
       setDataUser({...DataUser, [data] : event.target.value});
   }
-
-  // function Add Data API POST users
-  const addData = (e: any) => {
-    if (checkoutSchema) {
-      e.preventDefault();
-      dispatchAdd(doUsersCreate(DataUser));
-      dispatch(doUsersRequest())
-      setIsOpenAdd(false)
-    } else {
-      return checkoutSchema()
-    }
-  }
   
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
@@ -164,9 +152,55 @@ export default function Users() {
     userPhoneNumber: "",
   };
 
+  // define API GET users
+  // const [DataEdit, setDataEdit] = useState([]);  
+  // const user = useSelector((state: any) => state.usersReducers.users);
+  // const dispatchEdit = useDispatch();
+
+  // useState : modals Edit user
+  let [isOpenEdit, setIsOpenEdit] = useState(false)
+
+  //  function : close modals Edit user
+  function closeModalEdit() {
+    setIsOpenEdit(false)
+  }
+
+    // define useState API POST users
+  const [DataUserEdit, setDataUserEdit] = useState({
+    userFullName: null,
+    userCompanyName: null,
+    userType: null,
+    userEmail: null,
+    userPhoneNumber:  null,
+  })
+
+  //  function : open modals Edit user
+  function openModalEdit() {
+    setIsOpenEdit(true);
+  }
+  
+
+  const user = useSelector((state: any) => state.usersReducers.user);
+  
   // function handler API PUT user
   const handleEdit = (id: number) => {
-    console.info(`EDIT ${id}`);
+    openModalEdit();
+    dispatch(doUserRequest(id));
+    console.info(user);
+    if (user && user.resulst) {
+      console.info(user.results);
+    }
+    // setDataUser({
+    //     ...DataUserEdit,
+    //     userId : user.userId,
+    //     userFullName : user.userFullName,
+    //     password : user.password
+    // })
+  }
+
+  // function handler API PUT users
+  const eventHandlerEdit = (data:any) => (event:any) => {
+      setDataUserEdit({...DataUser, [data] : event.target.value});
   }
 
   // function handler API DELETE user
@@ -220,7 +254,7 @@ export default function Users() {
                         type="button"
                         color="error"
                         className="rounded-md bg-red-100 text-red-500 border-error-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                          <XMarkIcon width={15} height={15}/>
+                          <XMarkIcon width={20} height={20}/>
                       </Button>
                     </Box>
                     <Dialog.Title
@@ -322,6 +356,175 @@ export default function Users() {
                               label="Phone Number"
                               onBlur={handleBlur}
                               onChange={(event) => {eventHandlerAdd('userPhoneNumber')(event); handleChange(event)}}
+                              value={values.userPhoneNumber}
+                              name="userPhoneNumber"
+                              error={!!touched.userPhoneNumber && !!errors.userPhoneNumber}
+                              helperText={getHelperText(touched.userPhoneNumber, errors.userPhoneNumber)}
+                              sx={{ gridColumn: "span 4" }}
+                            />
+                          </Box>
+                          <Box display="flex" justifyContent="center" mt="20px">
+                            <Box display="flex"  mx="20px">
+                            <Button
+                              type="reset"
+                              color="warning"
+                              className="rounded-md bg-yellow-100 text-yellow-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                <RefreshIcon width={15} height={15}/>
+                            </Button>
+                            </Box>
+                            <Box display="flex">
+                            <Button
+                              // onClick={addData}
+                              type="submit"
+                              color="success"
+                              className="rounded-md bg-green-100 text-green-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                              <SaveIcon width={15} height={15} />
+                            </Button>
+                            </Box>
+                            
+                          </Box>
+                        </Form>
+                      )}
+                    </Formik>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+      </Transition>
+      <Transition appear show={isOpenEdit} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModalAdd}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-md  transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Box display="flex" justifyContent="end">
+                      <Button
+                        onClick={closeModalEdit}
+                        type="button"
+                        color="error"
+                        className="rounded-md bg-red-100 text-red-500 border-error-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                          <XMarkIcon width={20} height={20}/>
+                      </Button>
+                    </Box>
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-black"
+                    >
+                      Edit User
+                    </Dialog.Title>
+                    <br></br>
+                    <Formik
+                      onSubmit={handleFormSubmit}
+                      initialValues={initialValues}
+                      validationSchema={checkoutSchema}
+                    >
+                      {({
+                          values,
+                          errors,
+                          touched,
+                          handleBlur,
+                          handleChange,
+                          handleSubmit,
+                      }) => (
+                        <Form onSubmit={handleSubmit}>
+                          <Box
+                            display="grid"
+                            gap="30px"
+                            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                          >
+                            <TextField
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              label="First Name"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerEdit('userFullName')(event); handleChange(event)}}
+                              value={values.userFullName}
+                              name="userFullName"
+                              error={!!touched.userFullName && !!errors.userFullName}
+                              helperText={getHelperText(touched.userFullName, errors.userFullName)}
+                              sx={{ gridColumn: "span 4" }}
+                            />
+                            <FormControl variant="filled" sx={{ gridColumn: "span 4" }} error={!!touched.userType && !!errors.userType}>
+                              <InputLabel id="userType" color="warning">Type</InputLabel>
+                              <Select
+                                placeholder="Select type ..."
+                                color="warning"
+                                fullWidth
+                                variant="filled"
+                                className='form-control'
+                                label="Type"
+                                onBlur={handleBlur}                             
+                                onChange={(event) => {eventHandlerEdit('userType')(event); handleChange(event)}}
+                                value={values.userType}
+                                name="userType"
+                                
+                                // helperText={getHelperText(touched.userFullName, errors.userFullName)}
+                            >
+                                <MenuItem value=''><em>none</em></MenuItem>
+                                <MenuItem value='T'>Travel Agent</MenuItem>
+                                <MenuItem value='C'>Company</MenuItem>
+                                <MenuItem value='I'>Individual</MenuItem>
+                            </Select>
+                           {!!touched.userType && !!errors.userType && <span className='text-red-600 text-xs pt-1 pl-4'>{getHelperText(touched.userType, errors.userType)}</span>}
+                            </FormControl>
+                            <TextField
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              label="Company Name"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerEdit('userCompanyName')(event); handleChange(event)}}
+                              value={values.userCompanyName}
+                              name="userCompanyName"
+                              error={!!touched.userCompanyName && !!errors.userCompanyName}
+                              helperText={getHelperText(touched.userCompanyName, errors.userCompanyName)}
+                              sx={{ gridColumn: "span 4" }}
+                            />
+                            <TextField
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="email"
+                              label="Email"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerEdit('userEmail')(event); handleChange(event)}}
+                              value={values.userEmail}
+                              name="userEmail"
+                              error={!!touched.userEmail && !!errors.userEmail}
+                              helperText={getHelperText(touched.userEmail, errors.userEmail)}
+                              sx={{ gridColumn: "span 4" }}
+                            />
+                            <TextField
+                              color="warning"
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              label="Phone Number"
+                              onBlur={handleBlur}
+                              onChange={(event) => {eventHandlerEdit('userPhoneNumber')(event); handleChange(event)}}
                               value={values.userPhoneNumber}
                               name="userPhoneNumber"
                               error={!!touched.userPhoneNumber && !!errors.userPhoneNumber}

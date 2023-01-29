@@ -1,7 +1,7 @@
 // import { call, put } from 'redux-saga/effects'
 import { call, put } from "redux-saga/effects";
 import ReduceService from "../Service/reduceService";
-import { doAddUsersFailed, doAddUsersSucceed, doDeleteUsersFailed, doDeleteUsersSucceed, doUpdateUsersFailed, doUpdateUsersSucceed, doUsersRequestFailed, doUsersRequestSucceed } from '../Actions/reduceActions';
+import { doAddUsersFailed, doAddUsersSucceed, doDeleteUsersFailed, doDeleteUsersSucceed, doUpdateUsersFailed, doUpdateUsersSucceed, doUserRequestFailed, doUserRequestSucceed, doUsersRequestFailed, doUsersRequestSucceed } from '../Actions/reduceActions';
 
 function* handleUsers() {
     try {
@@ -10,6 +10,17 @@ function* handleUsers() {
     }
     catch (error) {
         yield put(doUsersRequestFailed(error));
+    }
+}
+
+function* handleUser(action) {
+    try {
+        const result = yield call(ReduceService.getId, action.payload);
+        yield put(doUserRequestSucceed(result.data));
+        // console.info(result.data)
+    }
+    catch (error) {
+        yield put(doUserRequestFailed(error));
     }
 }
 
@@ -43,4 +54,4 @@ function* handleDelUsers(action) {
     }
 }
 
-export { handleUsers, handleAddUsers, handleDelUsers, handleUpdateUsers }
+export { handleUsers, handleUser, handleAddUsers, handleDelUsers, handleUpdateUsers }

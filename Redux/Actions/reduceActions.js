@@ -20,6 +20,27 @@ export const doUsersRequestFailed = (payload) => {
     }
 }
 
+export const doUserRequest = (payload) => {
+    return {
+        type: ActionType.GET_USER,
+        payload
+    }
+}
+
+export const doUserRequestSucceed = (userId) => {
+    return {
+        type: ActionType.GET_USER_SUCCEED,
+        payload: userId
+    }
+}
+
+export const doUserRequestFailed = (payload) => {
+    return {
+        type: ActionType.GET_USER_SUCCEED,
+        payload
+    }
+}
+
 export const doUsersCreate = (payload) => {
     return {
         type: ActionType.ADD_USERS,
@@ -40,10 +61,7 @@ export const doAddUsersFailed = (payload) => {
         type: ActionType.ADD_USERS_FAILED,
         payload
     }
-
 }
-
-
 
 export const doUpdateUsers = (payload) => {
     return {
@@ -51,7 +69,6 @@ export const doUpdateUsers = (payload) => {
         payload
     }
 }
-
 
 export const doUpdateUsersSucceed = (payload) => {
     return {
@@ -67,7 +84,6 @@ export const doUpdateUsersFailed = (payload) => {
         payload
     }
 }
-
 
 export const doDeleteUsers = (payload) => {
     return {

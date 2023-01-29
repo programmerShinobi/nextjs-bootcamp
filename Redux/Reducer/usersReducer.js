@@ -1,7 +1,8 @@
 import ActionType from "../Constant/ActionType";
 
 const initialState = {
-    users: []
+    users: [],
+    user: [],
 };
 
 function usersReducers(state = initialState, action) {
@@ -12,13 +13,22 @@ function usersReducers(state = initialState, action) {
             return { ...state };
         case ActionType.GET_USERS_SUCCEED:
             return { ...state, users: action.payload };
-        case ActionType.ADD_USERS_FAILED:
-            return { ...state, users: action.payload };
+
+        case ActionType.GET_USER:
+            return { ...state };
+        case ActionType.GET_USER_SUCCEED:
+            return {
+                ...state,
+                user: action.payload
+            }
+        // return applyGetUser(state, action);
 
         case ActionType.ADD_USERS:
             return { ...state };
         case ActionType.ADD_USERS_SUCCEED:
             return { ...state, users: [...state.users, action.payload] };
+        case ActionType.ADD_USERS_FAILED:
+            return { ...state, users: action.payload };
 
         case ActionType.UPDATE_USERS:
             return { ...state };
@@ -53,5 +63,20 @@ const applyUpdateUsers = (state, action) => {
         }
     });
 }
+
+const applyGetUser = (state, action) => {
+
+    return state.user.map((users) => {
+        if (users.Id === action.payload.userId) {
+            return {
+                ...state,
+                ...action.payload
+            }
+        } else {
+            return state
+        }
+    });
+}
+
 
 export default usersReducers
