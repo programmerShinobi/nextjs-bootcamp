@@ -63,19 +63,4 @@ const applyUpdateUsers = (state, action) => {
     });
 }
 
-const applyGetUser = (state, action) => {
-
-    return state.user.map((users) => {
-        if (users.Id == action.payload.userId) {
-            return {
-                ...state,
-                ...action.payload
-            }
-        } else {
-            return state
-        }
-    });
-}
-
-
 export default usersReducers

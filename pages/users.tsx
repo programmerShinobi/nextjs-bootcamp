@@ -160,7 +160,7 @@ export default function Users() {
   const dispatchEdit = useDispatch();
 
   // useState : modals Edit user
-  let [isOpenEdit, setIsOpenEdit] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
 
   //  function : close modals Edit user
   function closeModalEdit() {
@@ -206,7 +206,7 @@ export default function Users() {
         }
       }
     }
-    
+
     // let { messages, results }:any = user;
     // let resultUser:any = user.results;
     // let { userCompanyName,userEmail,userFullName, userId, userIsverified,userModifiedDate, userPhoneNumber, userType}:any = resultUser;
