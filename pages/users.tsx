@@ -114,7 +114,8 @@ export default function Users() {
 
   // function handler API POST users
   const eventHandlerAdd = (data:any) => (event:any) => {
-      setDataUser({...DataUser, [data] : event.target.value});
+    setDataUser({ ...DataUser, [data]: event.target.value });
+    dispatch(doUsersRequest());
   }
   
   // function handle submit form add new users (API POST users)
