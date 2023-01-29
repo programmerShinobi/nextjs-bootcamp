@@ -376,23 +376,22 @@ export default function Users() {
                           </Box>
                           <Box display="flex" justifyContent="center" mt="20px">
                             <Box display="flex">
-                            <Button
-                              type="reset"
-                              color="warning"
-                              className="rounded-md bg-yellow-100 text-yellow-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                                <RefreshIcon width={15} height={15}/>
-                            </Button>
+                              <Button
+                                type="reset"
+                                color="warning"
+                                className="rounded-md bg-yellow-100 text-yellow-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                  <RefreshIcon width={15} height={15}/>
+                              </Button>
                             </Box>
-                            <Box display="flex">
-                            <Button
-                              // onClick={addData}
-                              type="submit"
-                              color="success"
-                              className="rounded-md bg-green-100 text-green-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                              <SaveIcon width={15} height={15} />
-                            </Button>
+                            <Box display="flex" pl="100px">
+                              <Button
+                                type="submit"
+                                color="success"
+                                className="rounded-md bg-green-100 text-green-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                                <SaveIcon width={15} height={15} />
+                              </Button>
                             </Box>
-                            <Box display="flex">
+                            <Box display="flex" pl="100px">
                               <Button
                                 onClick={closeModalEdit}
                                 type="button"
@@ -554,16 +553,15 @@ export default function Users() {
                                   <RefreshIcon width={15} height={15}/>
                               </Button>
                             </Box>
-                            <Box display="flex">
+                            <Box display="flex" pl="100px">
                               <Button
-                                // onClick={addData}
                                 type="submit"
                                 color="success"
                                 className="rounded-md bg-green-100 text-green-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                                 <SaveIcon width={15} height={15} />
                               </Button>
                             </Box>
-                            <Box display="flex">
+                            <Box display="flex" pl="100px">
                               <Button
                                 onClick={closeModalEdit}
                                 type="button"
