@@ -121,11 +121,11 @@ export default function Users() {
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
     
-    setSubmitting(true);
+    // setSubmitting(true);
     dispatchAdd(doUsersCreate(values));
     dispatch(doUsersRequest());
     setIsOpenAdd(false);
-    setSubmitting(false);
+    // setSubmitting(false);
   };
 
   // getHelper for display in form
@@ -214,11 +214,11 @@ export default function Users() {
 
   // function handle submit form edit users (API POST users)
   const handleFormSubmitEdit = (values: any, { setSubmitting }: any) => {
-    setSubmitting(true);
+    // setSubmitting(true);
     dispatchEdit(doUpdateUsers(DataUserEdit.userId, values));
     dispatch(doUsersRequest());
     setIsOpenEdit(false);
-    setSubmitting(false);
+    // setSubmitting(false);
   };
 
   const dispatchDelete = useDispatch();
