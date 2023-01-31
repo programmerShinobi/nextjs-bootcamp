@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { SessionProvider } from 'next-auth/react'
+
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
@@ -19,17 +21,19 @@ const App = ({ Component, pageProps }: AppProps) => {
   // }, [router]);
 
   return (
-    <Provider store={store}>
+<SessionProvider session={pageProps.session}>
       {router.pathname === '/' ? (
         <AuthLayout>
           <Login {...pageProps} />
         </AuthLayout>
       ) : (
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Provider store={store}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Provider>
       )}
-    </Provider>
+</SessionProvider>
   )
 };
 

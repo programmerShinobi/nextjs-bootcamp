@@ -1,53 +1,24 @@
-import { useState, useEffect, Fragment } from "react";
-import TopBar from './TobBar';
-import SideBar from "./SideBar";
-import { Transition } from "@headlessui/react";
+import styles from '../styles/AuthLayout.module.css';
 
-export default function Layout({ children }) {
-    const [showNav, setShowNav] = useState(true);
-    const [isMobile, setIsMobile] = useState(false);
-
-    function handleResize() {
-        if (innerWidth <= 640) {
-            setShowNav(false);
-            setIsMobile(true);
-        } else {
-            setShowNav(true);
-            setIsMobile(false);
-        }
-    }
-
-    useEffect(() => {
-        if (typeof window != undefined) {
-            addEventListener("resize", handleResize);
-        }
-
-        return () => {
-            removeEventListener("resize", handleResize);
-        };
-    }, []);
+export default function AuthLayout({ children }) {
 
     return (
         <>
-            {/* <TopBar showNav={showNav} setShowNav={setShowNav} />
-            <Transition
-                as={Fragment}
-                show={showNav}
-                enter="transform transition duration-[400ms]"
-                enterFrom="-translate-x-full"
-                enterTo="translate-x-0"
-                leave="transform duration-[400ms] transition ease-in-out"
-                leaveFrom="translate-x-0"
-                leaveTo="-translate-x-full"
-            >
-                <SideBar showNav={showNav} />
-            </Transition> */}
-            <main
-                className={`pt-16 transition-all duration-[400ms] ${showNav && !isMobile ? "" : ""
-                    }`}
-            >
-                <div className="px-4 md:px-16">{children}</div>
-            </main>
+            <div className="flex h-screen bg-gray-700">
+                <div className="m-auto bg-slate-50 rounded-md w-3/5 h-3/4 grid lg:grid-cols-2">
+                    <div className={styles.imgStyle}>
+                        <div className={styles.cartoonImg}></div>
+                        <div className={styles.cloud_one}></div>
+                        <div className={styles.cloud_two}></div>
+                    </div>
+                    <div className="right flex flex-col justify-evenly">
+                        <div className="text-center py-10">
+                            {children}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </>
     );
 }
