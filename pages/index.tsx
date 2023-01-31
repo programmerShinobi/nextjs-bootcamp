@@ -55,8 +55,8 @@ export default function Login(){
         
         <section className='w-3/4 mx-auto my-auto flex flex-col gap-1 rounded-xl' >
             <div className="title">
-                <h1 className='text-gray-800 text-4xl font-bold '>SHINOBI</h1>
-                <p className='w-3/4  mx-auto my-auto text-gray-400 '>Can you join to Shinobi ?<br/>Come join us !</p>
+                <h1 className='text-gray-800 text-4xl font-bold '>SHINOBI</h1><br/>
+                <p className='w-3/4  mx-auto my-auto text-gray-400 text-sm '>Can you join to Shinobi? Come join us!</p>
             </div>
 
             {/* form */}
@@ -96,7 +96,7 @@ export default function Login(){
                         Login
                     </button>
                 </div>
-                <div className="input-button">
+                {/* <div className="input-button">
                     <button type='button' onClick={handleGoogleSignin} className={styles.button_custom}>
                         Sign In with Google <img src={'/assets/google.svg'} width={25} height={25} ></img>
                     </button>
@@ -105,12 +105,12 @@ export default function Login(){
                     <button type='button' onClick={handleGithubSignin} className={styles.button_custom}>
                         Sign In with Github <img src={'/assets/github.svg'} width={25} height={25}></img>
                     </button>
-                </div>
+                </div> */}
             </form>
 
             {/* bottom */}
             <p className='text-center text-gray-400 '>
-                don't have an account yet? <a href={'#'}><label className='text-blue-700'>Sign Up</label></a>
+                don't have an account yet? <a href={'#'}><label className='text-orange-700'>Sign Up</label></a>
             </p>
         </section>
       </div>
