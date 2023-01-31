@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { useState } from "react";
-import axios from "../Config/http-common";
+import axios from "axios";
 import fs from "fs/promises";
 import path from "path";
 import Link from "next/link"; 
@@ -22,7 +22,7 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
       if (!selectedFile) return;
       const formData = new FormData();
       formData.append("myImage", selectedFile);
-      const { data } = await axios.post("/users/editUserPhoto", formData);
+      const { data } = await axios.post("/api/image", formData);
       console.log(data);
     } catch (error: any) {
       console.log(error.response?.data);

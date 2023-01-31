@@ -26,6 +26,7 @@
     "axios": "^1.2.4",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.4",
+    "formidable": "^2.1.1",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "next": "13.1.4",
@@ -42,6 +43,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/formidable": "^2.0.5",
     "@types/lodash": "^4.14.191",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
