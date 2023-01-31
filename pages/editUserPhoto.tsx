@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "axios";
 import fs from "fs/promises";
 import path from "path";
+import { doUpdatePhotoUsers } from "@/Redux/Actions/reduceActions";
+import { useDispatch } from "react-redux";
 
 interface Props {
   dirs: string[];
@@ -15,13 +17,15 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
   const [selectedFile, setSelectedFile] = useState<File>();
 
   const handleUpload = async () => {
+      // useDispatch API POST users
+  const dispatch = useDispatch();
     setUploading(true);
     try {
       if (!selectedFile) return;
       const formData = new FormData();
       formData.append("myImage", selectedFile);
       const { data } = await axios.post("/api/image", formData);
-      
+      // dispatch(doUpdatePhotoUsers(DataUserEdit.userId, formData));
       console.log(data);
     } catch (error: any) {
       console.log(error.response?.data);
