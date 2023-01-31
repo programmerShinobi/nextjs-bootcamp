@@ -27,14 +27,13 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
       const formData = new FormData();
       formData.append("myImage", selectedFile);
       const { data } = await axios.post("/api/image", formData);
+
       const isDataUpload = {
         usproId:24,
         usproPhoto: selectedFile.name
       }
       dispatchEditPhoto(doUpdatePhotoUsers(24, isDataUpload));
-      router.reload()
-      console.info(selectedFile.name);
-      
+      router.reload()      
     } catch (error: any) {
       console.log(error.response?.data);
     }
