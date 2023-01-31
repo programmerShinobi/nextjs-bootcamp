@@ -3,7 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import fs from "fs/promises";
 import path from "path";
-import Link from "next/link"; 
 
 interface Props {
   dirs: string[];
@@ -11,7 +10,6 @@ interface Props {
 
 const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
 
-    
   const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
@@ -23,6 +21,7 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
       const formData = new FormData();
       formData.append("myImage", selectedFile);
       const { data } = await axios.post("/api/image", formData);
+      
       console.log(data);
     } catch (error: any) {
       console.log(error.response?.data);

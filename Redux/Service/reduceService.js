@@ -36,6 +36,16 @@ const update = async (data) => {
     } catch (error) {
         return error.message;
     }
+}
+
+const updatePhoto = async (data) => {
+    const id = parseInt(data.userId);
+    try {
+        const result = await axios.put(`/userPhotoProfiles/${id}`, data);
+        return result;
+    } catch (error) {
+        return error.message;
+    }
 
 }
 
@@ -58,7 +68,8 @@ const ReduceService = {
     getId,
     create,
     update,
-    remove
+    remove,
+    updatePhoto
 }
 
 export default ReduceService;
