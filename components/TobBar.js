@@ -9,8 +9,10 @@ import {
 import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition, Popover } from "@headlessui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function TopBar({ showNav, setShowNav }) {
+    const router = useRouter();
     return (
         <div
             className={`fixed w-full h-16 flex justify-between items-center transition-all duration-[400ms] ${showNav ? "pl-56" : ""
@@ -107,7 +109,7 @@ export default function TopBar({ showNav, setShowNav }) {
                         <Menu.Button className="inline-flex w-full justify-center items-center">
                             <picture>
                                 <img
-                                    src="/naruto.png"
+                                    src="/images/user.png"
                                     className="rounded-full h-8 md:mr-4 border-2 border-white shadow-sm"
                                     alt="profile picture"
                                 />
@@ -131,8 +133,8 @@ export default function TopBar({ showNav, setShowNav }) {
                             <div className="p-1">
                                 <Menu.Item>
                                     <Link
-                                        href="#"
-                                        className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
+                                        href="/editUserPhoto"
+                                        className={`flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center ${router.pathname == "/editUserPhoto"}`}
                                     >
                                         <PencilIcon className="h-4 w-4 mr-2" />
                                         Edit
@@ -161,6 +163,6 @@ export default function TopBar({ showNav, setShowNav }) {
                     </Transition>
                 </Menu>
             </div>
-        </div>
+        </div >
     );
 }
