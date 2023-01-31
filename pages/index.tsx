@@ -53,10 +53,10 @@ export default function Login(){
             <title>Login</title>
         </Head>
         
-        <section className='w-3/4 mx-auto my-auto flex flex-col gap-2 rounded-xl' >
+        <section className='w-3/4 mx-auto my-auto flex flex-col gap-1 rounded-xl' >
             <div className="title">
                 <h1 className='text-gray-800 text-4xl font-bold '>SHINOBI</h1>
-                <p className='w-3/4  mx-auto my-auto text-gray-400 '>Can you join to Shinobi ? Come join us !</p>
+                <p className='w-3/4  mx-auto my-auto text-gray-400 '>Can you join to Shinobi ?<br/>Come join us !</p>
             </div>
 
             {/* form */}

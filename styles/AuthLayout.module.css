@@ -7,53 +7,56 @@
 
 .cartoonImg{
     background: url('/assets/logo-shinobi-.png') no-repeat;
-    position:sticky;
-    bottom: 0;left: 0;right: 0;top:0;
-    justify-content:stretch;
-    width: 90%;
-    height: 75%;
+    position:static;
+    bottom: 0;left: 60;top:0;
+    width: 98%;
+    height: 98%;
     background-size:contain;
-    background-position: 100% 100px;
+    background-position: 50% 100px;
     z-index: 0;
 }
 
-.cloud_one{
-    background: url('/assets/cloud_1.png') no-repeat;
+.shuriken_one{
+    background: url('/assets/shuriken_1.png') no-repeat;
     position: absolute;
-    top: 65%; left: 10%;
-    width: 180px;
-    height: 100px;
+    top: 55%; left: 0%;
+    width: 30px;
+    height: 80px;
     background-size: contain;
     z-index: 2;
-    transform: translateX(290%);
-    /* animation: cloud_one 25.5s ease-in 5.9s infinite; */
+    transform: translateX(100%);
+    animation: shuriken_one 2s ease-in .1s infinite;
 }
 
-.cloud_two{
-    background: url('/assets/cloud_2.png') no-repeat;
+/* .shuriken_two{
+    background: url('/assets/shuriken_2.png') no-repeat;
     position: absolute;
-    top: 49%;left: 50%;
-    width: 200px;
-    height: 100px;
+    top: 10%;left: 100%;
+    width: 50px;
+    height: 50px;
     background-size: contain;
     z-index: 0;
     transform: translateX(290%);
-    /* animation: cloud_two 18.5s ease-in .9s infinite; */
-}
+    animation: shuriken_two 1s ease-in .9s infinite;
+} */
 
 /* css keyframes */
-@keyframes cloud_one{
-    0%{
-        transform: translateX(290%);
-    }100%{
-        transform: translateX(-250%);
+@keyframes shuriken_one {
+    0% {
+        transform: translateX(0%) rotate(0deg);
+    }
+
+    100% {
+        transform: translateX(1500%) rotate(360deg);
     }
 }
 
-@keyframes cloud_two{
-    0%{
-        transform: translateX(160%);
-    }100%{
-        transform: translateX(-250%);
+/* @keyframes shuriken_two {
+    0% {
+        transform: translateX(0%) rotate(0deg);
     }
-}
+
+    100% {
+        transform: translateX(-999%) rotate(360deg);
+    }
+} */
