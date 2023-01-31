@@ -53,14 +53,14 @@ export default function Login(){
             <title>Login</title>
         </Head>
         
-        <section className='w-3/4 mx-auto my-auto flex flex-col gap-1 rounded-xl' >
+        <section className='w-3/4 mx-auto my-auto flex flex-col gap-3 rounded-xl' >
             <div className="title">
-                <h1 className='text-gray-800 text-4xl font-bold '>SHINOBI</h1><br/>
-                <p className='w-3/4  mx-auto my-auto text-gray-400 text-sm '>Can you join to Shinobi? Come join us!</p>
+                <h1 className='text-orange-600 text-4xl font-bold '>SHINOBI</h1><br/>
+                <p className='w-3/4  mx-auto my-auto text-gray-400 text-sm '>Want to become a shinobi?<br/>Let's join us!</p>
             </div>
 
             {/* form */}
-            <form className='flex mx-auto my-auto flex-col gap-2' onSubmit={formik.handleSubmit}>
+            <form className='flex mx-auto my-auto flex-col gap-3' onSubmit={formik.handleSubmit}>
                 <div className={`${styles.input_group} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                     <input 
                     type='email'
@@ -96,16 +96,7 @@ export default function Login(){
                         Login
                     </button>
                 </div>
-                {/* <div className="input-button">
-                    <button type='button' onClick={handleGoogleSignin} className={styles.button_custom}>
-                        Sign In with Google <img src={'/assets/google.svg'} width={25} height={25} ></img>
-                    </button>
-                </div>
-                <div className="input-button">
-                    <button type='button' onClick={handleGithubSignin} className={styles.button_custom}>
-                        Sign In with Github <img src={'/assets/github.svg'} width={25} height={25}></img>
-                    </button>
-                </div> */}
+
             </form>
 
             {/* bottom */}
