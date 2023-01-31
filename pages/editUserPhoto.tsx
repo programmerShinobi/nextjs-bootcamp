@@ -1,32 +1,40 @@
 import { GetServerSideProps, NextPage } from "next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import fs from "fs/promises";
 import path from "path";
 import { doUpdatePhotoUsers } from "@/Redux/Actions/reduceActions";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 interface Props {
   dirs: string[];
 }
 
 const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
-
+  const router = useRouter();
   const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFile, setSelectedFile] = useState<File>();
+  // // useDispatch API POST users
+  const dispatchEditPhoto = useDispatch();
 
   const handleUpload = async () => {
-      // useDispatch API POST users
-  const dispatch = useDispatch();
     setUploading(true);
     try {
+       
       if (!selectedFile) return;
       const formData = new FormData();
       formData.append("myImage", selectedFile);
       const { data } = await axios.post("/api/image", formData);
-      // dispatch(doUpdatePhotoUsers(DataUserEdit.userId, formData));
-      console.log(data);
+      const isDataUpload = {
+        usproId:24,
+        usproPhoto: selectedFile.name
+      }
+      dispatchEditPhoto(doUpdatePhotoUsers(24, isDataUpload));
+      router.reload()
+      console.info(selectedFile.name);
+      
     } catch (error: any) {
       console.log(error.response?.data);
     }

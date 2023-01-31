@@ -71,8 +71,8 @@ export const doUpdateUsers = (id, payload) => {
     }
 }
 
-export const doUpdateUsersSucceed = (payload) => { // undefined
-    console.info(payload)
+export const doUpdateUsersSucceed = (payload) => {
+    // console.info(payload)
     return {
         type: ActionType.UPDATE_USERS_SUCCEED,
         payload
@@ -96,7 +96,7 @@ export const doUpdatePhotoUsers = (id, payload) => {
 }
 
 export const doUpdatePhotoUsersSucceed = (payload) => { // undefined
-    console.info(payload)
+    // console.info(payload)
     return {
         type: ActionType.UPDATE_PHOTO_USERS_SUCCEED,
         payload

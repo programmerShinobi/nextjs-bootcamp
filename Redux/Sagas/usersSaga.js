@@ -1,7 +1,7 @@
 // import { call, put } from 'redux-saga/effects'
 import { call, put } from "redux-saga/effects";
 import ReduceService from "../Service/reduceService";
-import { doAddUsersFailed, doAddUsersSucceed, doDeleteUsersFailed, doDeleteUsersSucceed, doUpdateUsersFailed, doUpdateUsersSucceed, doUserRequestFailed, doUserRequestSucceed, doUsersRequestFailed, doUsersRequestSucceed } from '../Actions/reduceActions';
+import { doAddUsersFailed, doAddUsersSucceed, doDeleteUsersFailed, doDeleteUsersSucceed, doUpdatePhotoUsersFailed, doUpdatePhotoUsersSucceed, doUpdateUsersFailed, doUpdateUsersSucceed, doUserRequestFailed, doUserRequestSucceed, doUsersRequestFailed, doUsersRequestSucceed } from '../Actions/reduceActions';
 
 function* handleUsers() {
     try {
@@ -44,6 +44,7 @@ function* handleUpdateUsers(action) {
 }
 
 function* handleUpdatePhotoUsers(action) {
+    console.info(action)
     try {
         const result = yield call(ReduceService.updatePhoto, action.payload);
         yield put(doUpdatePhotoUsersSucceed(result));
