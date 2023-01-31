@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 
 export default function Login(){
 
-      const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
   const router = useRouter();
 
   const formik = useFormik({
@@ -37,14 +37,6 @@ export default function Login(){
       }
     }
   });
-
-  async function handleGoogleSignin(){
-    signIn('google', { callbackUrl : "http://localhost:3000"});
-  }
-
-  async function handleGithubSignin(){
-    signIn('github', { callbackUrl : "http://localhost:3000"});
-  }
 
     return (
       <div>
