@@ -7,12 +7,12 @@ const SideBar = forwardRef(({ showNav }, ref) => {
   const router = useRouter();
 
   return (
-    <div ref={ref} className="fixed w-56 h-full bg-white shadow-sm">
+    <div ref={ref} className="fixed w-56 h-full bg-gray-700 shadow-sm">
       <div className="flex justify-center mt-6 mb-14">
         <picture>
           <img
             className="w-32 h-auto"
-            src="/logo-shinobi-.png"
+            src="/assets/logo-shinobi-.png"
             alt="logo"
           />
         </picture>
