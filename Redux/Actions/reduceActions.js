@@ -87,6 +87,30 @@ export const doUpdateUsersFailed = (payload) => {
     }
 }
 
+export const doUpdatePhotoUsers = (id, payload) => {
+    return {
+        type: ActionType.UPDATE_PHOTO_USERS,
+        id,
+        payload
+    }
+}
+
+export const doUpdatePhotoUsersSucceed = (payload) => { // undefined
+    console.info(payload)
+    return {
+        type: ActionType.UPDATE_PHOTO_USERS_SUCCEED,
+        payload
+    }
+}
+
+
+export const doUpdatePhotoUsersFailed = (payload) => {
+    return {
+        type: ActionType.UPDATE_PHOTO_USERS_FAILED,
+        payload
+    }
+}
+
 export const doDeleteUsers = (payload) => {
     return {
         type: ActionType.DEL_USERS,

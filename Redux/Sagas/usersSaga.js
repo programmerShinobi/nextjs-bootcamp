@@ -43,6 +43,16 @@ function* handleUpdateUsers(action) {
     }
 }
 
+function* handleUpdatePhotoUsers(action) {
+    try {
+        const result = yield call(ReduceService.updatePhoto, action.payload);
+        yield put(doUpdatePhotoUsersSucceed(result));
+    }
+    catch (error) {
+        yield put(doUpdatePhotoUsersFailed(error));
+    }
+}
+
 function* handleDelUsers(action) {
     try {
         const result = yield call(ReduceService.remove, action.payload);
@@ -53,4 +63,4 @@ function* handleDelUsers(action) {
     }
 }
 
-export { handleUsers, handleUser, handleAddUsers, handleDelUsers, handleUpdateUsers }
+export { handleUsers, handleUser, handleAddUsers, handleDelUsers, handleUpdateUsers, handleUpdatePhotoUsers }

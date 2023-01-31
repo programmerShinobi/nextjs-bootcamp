@@ -41,7 +41,7 @@ const update = async (data) => {
 const updatePhoto = async (data) => {
     const id = parseInt(data.userId);
     try {
-        const result = await axios.put(`/userPhotoProfiles/${id}`, data);
+        const result = await axios.put(`/userprofiles/userPhotoProfiles/${id}`, data);
         return result;
     } catch (error) {
         return error.message;

@@ -36,6 +36,13 @@ function usersReducers(state = initialState, action) {
         case ActionType.UPDATE_USERS_FAILED:
             return applyUpdateUsers(state, action);
 
+        case ActionType.UPDATE_PHOTO_USERS:
+            return { ...state };
+        case ActionType.UPDATE_PHOTO_USERS_SUCCEED:
+            return applyUpdatePhotoUsers(state, action);
+        case ActionType.UPDATE_PHOTO_USERS_FAILED:
+            return applyUpdatePhotoUsers(state, action);
+
         case ActionType.DEL_USERS:
             return { ...state };
         case ActionType.DEL_USERS_SUCCEED:
@@ -49,8 +56,20 @@ function usersReducers(state = initialState, action) {
     }
 }
 
-
 const applyUpdateUsers = (state, action) => {
+    return state.users.results.map((users) => {
+        if (users.userId === state.user.results.userId) {
+            return {
+                ...state,
+                ...state.user.results
+            }
+        } else {
+            return state
+        }
+    });
+}
+
+const applyUpdatePhotoUsers = (state, action) => {
     return state.users.results.map((users) => {
         if (users.userId === state.user.results.userId) {
             return {
