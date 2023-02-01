@@ -70,7 +70,7 @@ export default function Login(){
                 <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
                     <input 
                     type={`${show ? "text" : "password"}`}
-                    // name='password'
+                    name='password'
                     placeholder='password'
                     className={styles.input_text}
                     {...formik.getFieldProps('password')}
