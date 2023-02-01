@@ -19,13 +19,14 @@
 .shuriken_one{
     background: url('/assets/shuriken_1.png') no-repeat;
     position: absolute;
-    top: 55%; left: 0%;
+    top: 55%; right: -30%;
     width: 30px;
     height: 80px;
     background-size: contain;
     z-index: 2;
     transform: translateX(100%);
-    animation: shuriken_one 2s ease-in .1s infinite;
+    animation: shuriken_one 1.5s ease-in 1s infinite;
+    animation-delay: shuriken_one 1s;
 }
 
 /* .shuriken_two{
@@ -43,11 +44,11 @@
 /* css keyframes */
 @keyframes shuriken_one {
     0% {
-        transform: translateX(0%) rotate(0deg);
+        transform: translateX(0%) rotate(360deg);
     }
 
     100% {
-        transform: translateX(1500%) rotate(360deg);
+        transform: translateX(-2000%) rotate(720deg);
     }
 }
 
