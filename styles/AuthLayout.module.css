@@ -21,7 +21,7 @@
   border-bottom-left-radius: 2px;
 } */
 
-@keyframes gradient {
+/* @keyframes gradient {
     0% {
         background-position: 0% 50%;
     }
@@ -33,7 +33,7 @@
     100% {
         background-position: 0% 50%;
     }
-} 
+}  */
 
 
 .cartoonImg{

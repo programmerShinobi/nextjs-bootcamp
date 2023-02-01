@@ -93,7 +93,7 @@ export default function Login(){
 
             {/* bottom */}
             <p className='text-center text-gray-400 '>
-                don't have an account yet? <a href={'#'}><label className='text-orange-700'>Sign Up</label></a>
+                don't have an account yet? <a href={'#'} className='text-orange-500'>Sign Up</a>
             </p>
         </section>
       </div>
