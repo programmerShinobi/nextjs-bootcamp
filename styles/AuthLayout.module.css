@@ -1,9 +1,40 @@
 
 .imgStyle{
-    @apply bg-gradient-to-r from-gray-700 to-orange-500 rounded-l-md;
+    @apply bg-gradient-to-r from-gray-700 to-orange-500  rounded-l-md;
     position: relative;
     overflow: hidden;
 }
+
+/* .imgStyle {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right,
+    #374151 0%,
+    #f97316 33%,
+    #f97316 33%,
+    #f97316 66%,
+    #f97316 66%,
+    #374151 100%);
+  background-size: 300% auto;
+  animation: gradient 5s ease-in 1s infinite;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+} */
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+} 
+
 
 .cartoonImg{
     background: url('/assets/logo-shinobi-.png') no-repeat;
@@ -25,8 +56,7 @@
     background-size: contain;
     z-index: 2;
     transform: translateX(100%);
-    animation: shuriken_one 1.5s ease-in 1s infinite;
-    animation-delay: shuriken_one 1s;
+    animation: shuriken_one 1.5s ease-in 1s infinite ;
 }
 
 /* .shuriken_two{
