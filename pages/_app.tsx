@@ -3,9 +3,11 @@ import { SessionProvider } from 'next-auth/react'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
+import LayoutAuth from '../components/LayoutAuth';
 import { Provider } from 'react-redux';
 import store from '../Redux/Store';
 import { useRouter } from "next/router";
+import Index from ".";
 import Dashboard from "./admin/dashboard";
 import Hotel from "./admin/hotel";
 import Users from "./admin/users";
@@ -16,6 +18,8 @@ import Purchasing from "./admin/purchasing";
 import Resto from "./admin/resto";
 import HumanResources from "./admin/humanResources"
 import EditUserPhoto from "./admin/editUserPhoto";
+import Login from "./auth/login";
+import Register from "./auth/register";
 
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -23,6 +27,21 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
+        {router.pathname === '/' && (
+          <LayoutAuth>
+            <Index {...pageProps}/>       
+          </LayoutAuth>
+        )}
+        {router.pathname === '/auth/login' && (
+          <LayoutAuth>
+            <Login {...pageProps}/>       
+          </LayoutAuth>
+        )}
+        {router.pathname === '/auth/register' && (
+          <LayoutAuth>
+            <Register {...pageProps}/>       
+          </LayoutAuth>
+        )}
         {router.pathname === '/admin/dashboard' && (
           <Layout>
             <Dashboard {...pageProps}/>       

@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doLogin } from '../../Redux/Actions/reduceActions';
 import { useRouter } from 'next/router';
 import usersReducers from '../../Redux/Reducer/usersReducer';
+import { KeyIcon } from '@heroicons/react/24/solid';
 
-export default function Login() {
+export default function Register() {
 
   // use Router
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function Login() {
   
   // define useState API POST users
   const [DataUser, setDataUser] = useState({
+    userFullName:null,
     userEmail: null,
     userPassword: null,
   });
@@ -49,20 +51,22 @@ export default function Login() {
   }
 
   // check all validasi required & etc
-  const checkoutSchema:any = yup.object().shape({
+  const checkoutSchema: any = yup.object().shape({
+    userFullName: yup.string().required("required"),
     userEmail: yup.string().email("invalid email").required("required"),
     userPassword: yup.string().required("required")
   });
 
   // function initialValue field from table users
   const initialValues: any = {
+    userFullName: "",
     userEmail: "",
     userPassword: "",
   };
   return (
     <Box>
       <Head>
-        <title>Login</title>
+        <title>Register</title>
       </Head>
       <section className='w-3/4 mx-auto my-auto flex flex-col gap-3 rounded-xl' >
         <div className="title">
@@ -88,6 +92,21 @@ export default function Login() {
                 gap="5px"
                 gridTemplateColumns="repeat(4, minmax(0, 1fr))"
               >
+                <TextField
+                  color="warning"
+                  fullWidth
+                  className="border border-orange-500"
+                  variant="filled"
+                  type="text"
+                  label="Full Name"
+                  onBlur={handleBlur}
+                  onChange={(event) => { eventHandlerAdd('userFullName')(event); handleChange(event) }}
+                  value={values.userFullName}
+                  name="userFullName"
+                  error={!!touched.userFullName && !!errors.userFullName}
+                  helperText={getHelperText(touched.userFullName, errors.userFullName)}
+                  sx={{ gridColumn: "span 4" }}
+                />
                 <TextField
                   color="warning"
                   fullWidth
@@ -124,13 +143,13 @@ export default function Login() {
                     className="rounded-md bg-orange-100 text-orange-500 border-warning-500 first-line:bg-opacity-20 px-4 text-sm normal-case font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                     sx={{ gridColumn: "span 4" }}
                   >
-                    <LoginIcon width={5} height={5} /><span className='text-transparent'>-</span>{"Login"}
+                    <KeyIcon width={15} height={15} /><span className='text-transparent'>-</span>{"Register"}
                 </Button>
                 <InputLabel
                   className='text-center text-gray-400 text-sm'
                   sx={{ gridColumn: "span 4" }}
                 >
-                  don't have an account yet?<Link href={'/auth/register'} className='text-orange-500'> Register</Link>
+                  do have an account yet?<Link href={'/auth/login'} className='text-orange-500'> Login</Link>
                 </InputLabel>
               </Box>
             </Form>
