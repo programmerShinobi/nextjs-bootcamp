@@ -1,18 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { SessionProvider } from 'next-auth/react'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
-import LayoutAuth from '../components/LayoutAuth';
-import LayoutManager from '../components/LayoutManager';
-import LayoutOB from '../components/LayoutOB';
-import LayoutUsers from '../components/LayoutUsers';
 import { Provider } from 'react-redux';
 import store from '../Redux/Store';
 import { useRouter } from "next/router";
-import Login from "./auth/login";
 import Dashboard from "./admin/dashboard";
-import Home from ".";
 import Hotel from "./admin/hotel";
 import Users from "./admin/users";
 import Booking from "./admin/booking";
@@ -21,7 +15,6 @@ import Payment from "./admin/payment";
 import Purchasing from "./admin/purchasing";
 import Resto from "./admin/resto";
 import HumanResources from "./admin/humanResources"
-import Link from 'next/link';
 import EditUserPhoto from "./admin/editUserPhoto";
 
 

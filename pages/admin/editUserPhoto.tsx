@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import fs from "fs/promises";
 import path from "path";
-import { doUpdatePhotoUsers } from "@/Redux/Actions/reduceActions";
-import { useDispatch,useSelector } from "react-redux";
+import { doUpdatePhotoUsers } from "../../Redux/Actions/reduceActions";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface Props {
   dirs: string[];
@@ -32,6 +33,7 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
         usproId:24,
         usproPhoto: selectedFile.name
       }
+      console.info(isDataUpload)
       dispatchEditPhoto(doUpdatePhotoUsers(24, isDataUpload));
       router.reload()      
     } catch (error: any) {
@@ -73,13 +75,13 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
               >
                 {uploading ? "Uploading.." : "Upload"}
               </button>
-              {/* <div className="mt-20 flex flex-col space-y-3">
+              <div className="mt-20 flex flex-col space-y-3">
                 {dirs.map((item) => (
                   <Link key={item} href={"/images/" + item}>
                     <label className="text-blue-500 hover:underline">{item}</label>
                   </Link>
                 ))}
-              </div> */}
+              </div>
             </div>
           </div>
         </>
@@ -89,7 +91,7 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
 export const getServerSideProps: GetServerSideProps = async () => {
   const props = { dirs: [] };
   try {
-    const dirs = await fs.readdir(path.join(process.cwd(), "../../public/images"));
+    const dirs = await fs.readdir(path.join(process.cwd(), "/public/images"));
     props.dirs = dirs as any;
     return { props };
   } catch (error) {
