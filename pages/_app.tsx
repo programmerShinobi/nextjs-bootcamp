@@ -20,19 +20,12 @@ import Master from "./admin/master";
 import Payment from "./admin/payment";
 import Purchasing from "./admin/purchasing";
 import Resto from "./admin/resto";
-import HumanResources from "./admin/humaNResources";
+import HumanResources from "./admin/humanResources"
 import Link from 'next/link';
 
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-
-  // useEffect(() => {
-  //   if (router.pathname === '/') {
-  //     router.replace('/dashboard');
-  //   }
-  // }, [router]);
-
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
@@ -61,7 +54,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <Hotel />
           </Layout>
         )}
-        {router.pathname === '/admin/humanresources' && (
+        {router.pathname === '/admin/humanResources' && (
           <Layout>
             <HumanResources />
           </Layout>
