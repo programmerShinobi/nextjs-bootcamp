@@ -35,11 +35,20 @@ export default function Login() {
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
     dispatch(doLogin(values));
-    console.info(isLogin.userdata);
 
     // Memeriksa apakah user sudah login
-    if (isLogin.message=='Login successfully') {
-      router.push('/admin/dashboard');
+    if (isLogin.message == 'Login successfully') {
+      if (isLogin.userdata[0].usro_role_id == 1) {        // Guest
+        router.push('/');
+      } else if (isLogin.userdata[0].usro_role_id == 2) { // Manager
+        router.push('/manager');
+      } else if (isLogin.userdata[0].usro_role_id == 3) { // Office Boy
+        router.push('/ob');
+      } else if (isLogin.userdata[0].usro_role_id == 4) { // Admin
+        router.push('/admin');
+      } else if (isLogin.userdata[0].usro_role_id == 5) { // User
+        router.push('/users');
+      }
     }
   };
 

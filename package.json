@@ -26,6 +26,7 @@
     "axios": "^1.2.4",
     "formidable": "^2.1.1",
     "formik": "^2.2.9",
+    "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
     "next": "13.1.4",
     "next-auth": "^4.19.0",

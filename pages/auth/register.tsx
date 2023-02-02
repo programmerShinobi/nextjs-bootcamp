@@ -9,6 +9,7 @@ import { doRegister } from '../../Redux/Actions/reduceActions';
 import { useRouter } from 'next/router';
 import usersReducers from '../../Redux/Reducer/usersReducer';
 import { KeyIcon } from '@heroicons/react/24/solid';
+// import sendEmail from '@/utils/sendMail'; // import fungsi sendMail
 
 export default function Register() {
 
@@ -39,7 +40,9 @@ export default function Register() {
     console.info(isRegister);
 
     // Memeriksa apakah user sudah login
-    if (isRegister.message=='Register Successfully') {
+    if (isRegister.message == 'Register Successfully') {
+      // mengirim email konfirmasi register
+      // sendEmail(values.userEmail, 'Konfirmasi Register', 'Anda sudah berhasil melakukan register. Terima kasih telah bergabung bersama kami.');
       router.push('/auth/login');
     }
   };

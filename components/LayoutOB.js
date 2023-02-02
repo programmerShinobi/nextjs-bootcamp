@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import TopBar from './TobBar';
-import SideBar from "./SideBar";
+import SideBarOB from "./SideBarOB";
 import { Transition } from "@headlessui/react";
 
 export default function LayoutOB({ children }) {
@@ -40,7 +40,7 @@ export default function LayoutOB({ children }) {
         leaveFrom="translate-x-0"
         leaveTo="-translate-x-full"
       >
-        <SideBar showNav={showNav} />
+        <SideBarOB showNav={showNav} />
       </Transition>
       <main
         className={`pt-16 transition-all duration-[400ms] ${showNav && !isMobile ? "pl-56" : ""

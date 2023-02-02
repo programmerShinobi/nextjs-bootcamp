@@ -4,11 +4,13 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import LayoutAuth from '../components/LayoutAuth';
+import LayoutManager from '../components/LayoutManager';
+import LayoutOB from '../components/LayoutOB';
+import LayoutUsers from '../components/LayoutUsers';
 import { Provider } from 'react-redux';
 import store from '../Redux/Store';
 import { useRouter } from "next/router";
 import Index from ".";
-import Dashboard from "./admin/dashboard";
 import Hotel from "./admin/hotel";
 import Users from "./admin/users";
 import Booking from "./admin/booking";
@@ -20,6 +22,11 @@ import HumanResources from "./admin/humanResources"
 import EditUserPhoto from "./admin/editUserPhoto";
 import Login from "./auth/login";
 import Register from "./auth/register";
+import User from "./users";
+import DashboardAdmin from "./admin";
+import DashboardManager from "./manager";
+import OB from "./ob";
+import HotelOB from "./ob/hotel";
 
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -42,9 +49,24 @@ const App = ({ Component, pageProps }: AppProps) => {
             <Register {...pageProps}/>       
           </LayoutAuth>
         )}
-        {router.pathname === '/admin/dashboard' && (
+        {router.pathname === '/manager' && (
+          <LayoutManager>
+            <DashboardManager {...pageProps}/>       
+          </LayoutManager>
+        )}
+        {router.pathname === '/ob' && (
+          <LayoutOB>
+            <OB {...pageProps}/>       
+          </LayoutOB>
+        )}
+        {router.pathname === '/ob/hotel' && (
+          <LayoutOB>
+            <HotelOB {...pageProps}/>
+          </LayoutOB>
+        )}
+        {router.pathname === '/admin' && (
           <Layout>
-            <Dashboard {...pageProps}/>       
+            <DashboardAdmin {...pageProps}/>       
           </Layout>
         )}
         {router.pathname === '/admin/master' && (
@@ -91,6 +113,11 @@ const App = ({ Component, pageProps }: AppProps) => {
           <Layout>
             <EditUserPhoto {...pageProps} />
           </Layout>
+        )}
+        {router.pathname === '/users' && (
+          <LayoutUsers>
+            <User {...pageProps}/>       
+          </LayoutUsers>
         )}
       </Provider>
     </SessionProvider>
