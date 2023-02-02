@@ -13,11 +13,8 @@ export default function Login() {
 
   // define useState API POST users
   const [DataUser, setDataUser] = useState({
-    userFullName: null,
-    userCompanyName: null,
-    userType: null,
     userEmail: null,
-    userPhoneNumber:  null,
+    uspaPasswordhash:  null,
   })
 
   // function handler API POST users
