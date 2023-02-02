@@ -10,7 +10,7 @@ import { doLogin } from '../Redux/Actions/reduceActions';
 import { useRouter } from 'next/router';
 import usersReducers from '../Redux/Reducer/usersReducer';
 
-export default function Home() {
+export default function Login() {
 
   // use Router
   const router = useRouter();
@@ -39,7 +39,7 @@ export default function Home() {
 
     // Memeriksa apakah user sudah login
     if (isLogin.message=='Login successfully') {
-      router.push('/dashboard');
+      router.push('/admin/dashboard');
     }
   };
 
@@ -62,7 +62,7 @@ export default function Home() {
   return (
     <Box>
       <Head>
-        <title>Home</title>
+        <title>Login</title>
       </Head>
       <section className='w-3/4 mx-auto my-auto flex flex-col gap-3 rounded-xl' >
         <div className="title">

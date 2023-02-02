@@ -3,7 +3,7 @@ import TopBar from './TobBar';
 import SideBar from "./SideBar";
 import { Transition } from "@headlessui/react";
 
-export default function Layout({ children }) {
+export default function LayoutManager({ children }) {
   const [showNav, setShowNav] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
