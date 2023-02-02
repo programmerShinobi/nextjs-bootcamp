@@ -10,7 +10,7 @@ import LayoutUsers from '../components/LayoutUsers';
 import { Provider } from 'react-redux';
 import store from '../Redux/Store';
 import { useRouter } from "next/router";
-import Login from "./login";
+import Login from "./auth/login";
 import Dashboard from "./admin/dashboard";
 import Home from ".";
 import Hotel from "./admin/hotel";
@@ -22,6 +22,7 @@ import Purchasing from "./admin/purchasing";
 import Resto from "./admin/resto";
 import HumanResources from "./admin/humanResources"
 import Link from 'next/link';
+import EditUserPhoto from "./admin/editUserPhoto";
 
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -31,47 +32,52 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Provider store={store}>
         {router.pathname === '/admin/dashboard' && (
           <Layout>
-            <Dashboard />       
+            <Dashboard {...pageProps}/>       
           </Layout>
         )}
         {router.pathname === '/admin/master' && (
           <Layout>
-            <Master />
+            <Master {...pageProps}/>
           </Layout>
         )}
         {router.pathname === '/admin/booking' && (
           <Layout>
-            <Booking />
+            <Booking {...pageProps}/>
           </Layout>
         )}
         {router.pathname === '/admin/users' && (
           <Layout>
-            <Users />
+            <Users {...pageProps}/>
           </Layout>
         )}
         {router.pathname === '/admin/hotel' && (
           <Layout>
-            <Hotel />
+            <Hotel {...pageProps}/>
           </Layout>
         )}
         {router.pathname === '/admin/humanResources' && (
           <Layout>
-            <HumanResources />
+            <HumanResources {...pageProps}/>
           </Layout>
         )}
         {router.pathname === '/admin/payment' && (
           <Layout>
-            <Payment />
+            <Payment {...pageProps}/>
           </Layout>
         )}
         {router.pathname === '/admin/purchasing' && (
           <Layout>
-            <Purchasing />
+            <Purchasing {...pageProps}/>
           </Layout>
         )}
         {router.pathname === '/admin/resto' && (
           <Layout>
-            <Resto />
+            <Resto {...pageProps}/>
+          </Layout>
+        )}
+        {router.pathname === '/admin/editUserPhoto' && (
+          <Layout>
+            <EditUserPhoto {...pageProps} />       
           </Layout>
         )}
       </Provider>

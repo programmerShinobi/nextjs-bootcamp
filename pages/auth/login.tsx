@@ -6,9 +6,9 @@ import TextField from '@mui/material/TextField';
 import { Form, Formik } from 'formik';
 import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { doLogin } from '../Redux/Actions/reduceActions';
+import { doLogin } from '../../Redux/Actions/reduceActions';
 import { useRouter } from 'next/router';
-import usersReducers from '../Redux/Reducer/usersReducer';
+import usersReducers from '../../Redux/Reducer/usersReducer';
 
 export default function Login() {
 

@@ -133,7 +133,7 @@ export default function TopBar({ showNav, setShowNav }) {
                             <div className="p-1">
                                 <Menu.Item>
                                     <Link
-                                        href="/editUserPhoto"
+                                        href="/admin/editUserPhoto"
                                         className={`flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center ${router.pathname == "/editUserPhoto"}`}
                                     >
                                         <PencilIcon className="h-4 w-4 mr-2" />
