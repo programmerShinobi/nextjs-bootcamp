@@ -6,27 +6,31 @@ import TextField from '@mui/material/TextField';
 import { Form, Formik } from 'formik';
 import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch } from 'react-redux';
+import { doLoginUsers } from '@/Redux/Actions/reduceActions';
+import { useRouter } from 'next/router';
 
 export default function Login() {
-  // useDispatch API POST users
+  // useRoute
+  const router = useRouter();
+
+  // useDispatch
   const dispatchAdd = useDispatch();
 
   // define useState API POST users
   const [DataUser, setDataUser] = useState({
     userEmail: null,
-    uspaPasswordhash:  null,
-  })
+    uspaPasswordhash: null,
+  });
 
   // function handler API POST users
   const eventHandlerAdd = (data:any) => (event:any) => {
     setDataUser({ ...DataUser, [data]: event.target.value });
-    // dispatch(doUsersRequest());
   }
 
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
-    // dispatchAdd(doUsersCreate(values));
-    // dispatch(doUsersRequest());
+    dispatchAdd(doLoginUsers(values));
+    router.push('/users');
   };
 
   // getHelper for display in form

@@ -1,6 +1,7 @@
 import { takeEvery, all } from "redux-saga/effects";
 import ActionType from "../Constant/ActionType";
 import { handleAddUsers, handleDelUsers, handleUpdateUsers, handleUser, handleUsers, handleUpdatePhotoUsers } from "./usersSaga";
+import { handleLoginUsers } from "./authSaga";
 
 function* watchAll() {
     yield all([
@@ -9,7 +10,8 @@ function* watchAll() {
         takeEvery(ActionType.ADD_USERS, handleAddUsers),
         takeEvery(ActionType.UPDATE_USERS, handleUpdateUsers),
         takeEvery(ActionType.UPDATE_PHOTO_USERS, handleUpdatePhotoUsers),
-        takeEvery(ActionType.DEL_USERS, handleDelUsers)
+        takeEvery(ActionType.DEL_USERS, handleDelUsers),
+        takeEvery(ActionType.LOGIN_USERS, handleLoginUsers)
     ]);
 }
 

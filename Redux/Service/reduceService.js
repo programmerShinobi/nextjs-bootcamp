@@ -60,8 +60,13 @@ const remove = async (id) => {
 
 }
 
-const removeAll = () => {
-    return axios.delete("/users");
+const login = async (data) => {
+    try {
+        const result = await axios.post("auth/login", data);
+        return result;
+    } catch (error) {
+        return error.message;
+    }
 }
 
 const ReduceService = {
@@ -70,7 +75,8 @@ const ReduceService = {
     create,
     update,
     remove,
-    updatePhoto
+    updatePhoto,
+    login
 }
 
 export default ReduceService;

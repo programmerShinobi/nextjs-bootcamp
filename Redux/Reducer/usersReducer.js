@@ -51,6 +51,13 @@ function usersReducers(state = initialState, action) {
                 users: state.users.filter(users => users.id !== action.payload.id)
             }
 
+        case ActionType.LOGIN_USERS:
+            return { ...state };
+        case ActionType.LOGIN_USERS_SUCCEED:
+            return { ...state, users: [...state.users, action.payload] };
+        case ActionType.LOGIN_USERS_FAILED:
+            return { ...state, users: action.payload };
+
         default:
             return { ...state, users: action.payload }
     }
