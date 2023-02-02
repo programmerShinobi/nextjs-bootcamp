@@ -64,4 +64,19 @@ function* handleDelUsers(action) {
     }
 }
 
-export { handleUsers, handleUser, handleAddUsers, handleDelUsers, handleUpdateUsers, handleUpdatePhotoUsers }
+function* handleLoginUsers(action) {
+    try {
+        const router = useRouter();
+        const result = yield call(ReduceService.login, action.payload);
+        const login = yield put(doLoginUsersSucceed(result.data));
+        console.info(result.data);
+        if (login) {
+            router.push('/users');
+        }
+    }
+    catch (error) {
+        yield put(doLoginUsersFailed(error));
+    }
+}
+
+export { handleUsers, handleUser, handleAddUsers, handleDelUsers, handleUpdateUsers, handleUpdatePhotoUsers, handleLoginUsers }
