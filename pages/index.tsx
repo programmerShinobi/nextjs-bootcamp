@@ -1,101 +1,120 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import Image from 'next/image';
 import styles from '../styles/Form.module.css';
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useState } from 'react';
-import { signIn, signOut } from "next-auth/react"
-import { useFormik } from 'formik';
-import login_validate from '../lib/validate';
-import { useRouter } from 'next/router';
+import * as yup from "yup";
+import { Box, Button, ButtonGroup, FormControl, Grid, IconButton, InputLabel, Link, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
+import { LockClosedIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import TextField from '@mui/material/TextField';
+import { Form, Formik, ErrorMessage, Field, FieldArray } from 'formik';
+import LoginIcon from '@mui/icons-material/Login';
+import Input from '@mui/material/Input';
 
 export default function Login(){
+  // function handle submit form add new users (API POST users)
+  const handleFormSubmit = (values: any, { setSubmitting }: any) => {
+    // dispatchAdd(doUsersCreate(values));
+    // dispatch(doUsersRequest());
+  };
 
-  const [show, setShow] = useState(false);
-  const router = useRouter();
+  // getHelper for display in form
+  const getHelperText = (touched:any, errors:any) => {
+    return (touched && errors ? errors : false)
+  }
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: ''
-    },
-    validate : login_validate,
-    onSubmit: async (values) => {
-      try {
-        const status:any = await signIn('credentials', {
-          redirect: false,
-          email: values.email,
-          password: values.password,
-          callbackUrl: "/"
-        });
+  // phone regExp
+  const phoneRegExp =
+    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
-        if (status.ok) {
-          router.push(status.url);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
+  // check all validasi required & etc
+  const checkoutSchema:any = yup.object().shape({
+    userEmail: yup.string().email("invalid email").required("required"),
+    uspaPasswordhash: yup.string().required("required")
   });
 
-    return (
-      <div>
-
-        <Head>
-            <title>Login</title>
-        </Head>
+  // function initialValue field from table users
+  const initialValues: any = {
+    userEmail: "",
+    uspaPasswordhash: "",
+  };
+  return (
+    <div>
+      <Head>
+        <title>Login</title>
+      </Head>
         
-        <section className='w-3/4 mx-auto my-auto flex flex-col gap-3 rounded-xl' >
-            <div className="title">
-                <h1 className='text-orange-600 text-4xl font-bold '>SHINOBI</h1><br/>
-                <p className='w-3/4  mx-auto my-auto text-gray-400 text-sm '>Want to become a shinobi?<br/>Let's join us!</p>
-            </div>
-
-            {/* form */}
-            <form className='flex mx-auto my-auto flex-col gap-3' onSubmit={formik.handleSubmit}>
-                <div className={`${styles.input_group} ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
-                    <input 
-                    type='email'
-                    name='email'
-                    placeholder='Email'
-                    className={styles.input_text}
-                    {...formik.getFieldProps('email')}
-                    />
-                    <span className='icon flex items-center px-4'>
-                        <HiAtSymbol size={25} />
-                    </span>
-                </div>
-                {formik.errors.email && formik.touched.email ? <span className='text-rose-500'>{formik.errors.email}</span> : <></>}
-
-                <div className={`${styles.input_group} ${formik.errors.password && formik.touched.password ? 'border-rose-600' : ''}`}>
-                    <input 
-                    type={`${show ? "text" : "password"}`}
-                    name='password'
-                    placeholder='password'
-                    className={styles.input_text}
-                    {...formik.getFieldProps('password')}
-                    />
-                     <span className='icon flex items-center px-4' onClick={() => setShow(!show)}>
-                        <HiFingerPrint size={25} />
-                    </span>
-                   
-                </div>
-
-                {formik.errors.password && formik.touched.password ? <span className='text-rose-500'>{formik.errors.password}</span> : <></>}
-                {/* login buttons */}
-                <div className="input-button">
-                    <button type='submit' className={styles.button}>
-                        Login
-                    </button>
-                </div>
-
-            </form>
-
-            {/* bottom */}
-            <p className='text-center text-gray-400 '>
-                don't have an account yet? <a href={'#'} className='text-orange-500'>Sign Up</a>
-            </p>
-        </section>
-      </div>
-    )
+      <section className='w-3/4 mx-auto my-auto flex flex-col gap-3 rounded-xl' >
+        <div className="title">
+          <h1 className='text-orange-600 text-4xl font-bold '>SHINOBI</h1><br />
+          <p className='w-3/4  mx-auto my-auto text-gray-400 text-sm '>Want to become a shinobi?<br />Let's join us!</p>
+        </div>
+        <Formik
+          onSubmit={handleFormSubmit}
+          initialValues={initialValues}
+          validationSchema={checkoutSchema}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+          }) => (
+            <Form onSubmit={handleSubmit}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              >
+                <TextField
+                  color="warning"
+                  fullWidth
+                  variant="filled"
+                  type="email"
+                  label="Email"
+                  onBlur={handleBlur}
+                  // onChange={(event) => {eventHandlerAdd('userEmail')(event); handleChange(event)}}
+                  value={values.userEmail}
+                  name="userEmail"
+                  error={!!touched.userEmail && !!errors.userEmail}
+                  helperText={getHelperText(touched.userEmail, errors.userEmail)}
+                  sx={{ gridColumn: "span 4" }}
+                />
+                    
+                <TextField
+                  color="warning"
+                  fullWidth
+                  variant="filled"
+                  type="text"
+                  label="Password"
+                  onBlur={handleBlur}
+                  // onChange={(event) => { eventHandlerAdd('uspaPasswordhash')(event); handleChange(event) }}
+                  value={values.uspaPasswordhash}
+                  name="uspaPasswordhash"
+                  error={!!touched.uspaPasswordhash && !!errors.uspaPasswordhash}
+                  helperText={getHelperText(touched.uspaPasswordhash, errors.uspaPasswordhash)}
+                  sx={{ gridColumn: "span 4" }}
+                />
+                <Button
+                    type="submit"
+                    color="warning"
+                    className="rounded-md bg-orange-100 text-orange-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                    sx={{ gridColumn: "span 4" }}
+                  >
+                    <LoginIcon width={5} height={5} /><span className='text-transparent'>-</span>Login
+                </Button>
+                <InputLabel
+                  className='text-center text-gray-400 text-sm'
+                  sx={{ gridColumn: "span 4" }}
+                >
+                  don't have an account yet?<Link href={'#'} className='text-orange-500'> Sign Up</Link>
+                </InputLabel>
+              </Box>
+            </Form>
+          )}
+        </Formik>
+      </section>
+    </div>
+  );
 }

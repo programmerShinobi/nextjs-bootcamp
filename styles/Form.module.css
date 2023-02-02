@@ -15,9 +15,8 @@
 }
 
 .button:hover{
-    @apply w-full bg-gradient-to-r from-gray-50 to-gray-100  rounded-xl;
+    @apply w-full border-slate-50 rounded-xl;
     @apply py-3 text-gray-700 text-lg border border-orange-500;
-    
 }
 
 .button_custom{
