@@ -1,6 +1,13 @@
 import { forwardRef } from "react";
 import Link from "next/link";
 import { HomeIcon, CreditCardIcon, UserIcon, UsersIcon } from "@heroicons/react/24/solid";
+import DonutSmallIcon from '@mui/icons-material/DonutSmall';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import Groups3Icon from '@mui/icons-material/Groups3';
+import PaymentIcon from '@mui/icons-material/Payment';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import { useRouter } from "next/router";
 
 const SideBar = forwardRef(({ showNav }, ref) => {
@@ -42,7 +49,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               }`}
           >
             <div className="mr-2">
-              <UsersIcon className="h-5 w-5" />
+              <DonutSmallIcon className="h-5 w-5" />
             </div>
             <div>
               <p>Master</p>
@@ -57,7 +64,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               }`}
           >
             <div className="mr-2">
-              <UsersIcon className="h-5 w-5" />
+              <CollectionsBookmarkIcon className="h-5 w-5" />
             </div>
             <div>
               <p>Booking</p>
@@ -87,7 +94,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               }`}
           >
             <div className="mr-2">
-              <UsersIcon className="h-5 w-5" />
+              <LocationCityIcon className="h-5 w-5" />
             </div>
             <div>
               <p>Hotel</p>
@@ -102,7 +109,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               }`}
           >
             <div className="mr-2">
-              <UsersIcon className="h-5 w-5" />
+              <Groups3Icon className="h-5 w-5" />
             </div>
             <div>
               <p>HR</p>
@@ -117,7 +124,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               }`}
           >
             <div className="mr-2">
-              <UsersIcon className="h-5 w-5" />
+              <PaymentIcon className="h-5 w-5" />
             </div>
             <div>
               <p>Payment</p>
@@ -132,7 +139,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               }`}
           >
             <div className="mr-2">
-              <UsersIcon className="h-5 w-5" />
+              <ShoppingCartIcon className="h-5 w-5" />
             </div>
             <div>
               <p>Purchase</p>
@@ -147,7 +154,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               }`}
           >
             <div className="mr-2">
-              <UsersIcon className="h-5 w-5" />
+              <LocalDiningIcon className="h-5 w-5" />
             </div>
             <div>
               <p>Resto</p>
