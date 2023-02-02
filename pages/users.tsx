@@ -14,6 +14,7 @@ import { Form, Formik, ErrorMessage, Field, FieldArray } from 'formik';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import SaveIcon from '@mui/icons-material/Save';
 import Input from '@mui/material/Input';
+import Head from 'next/head';
 
 export default function Users() {
   // defaine themes
@@ -232,6 +233,9 @@ export default function Users() {
   
   return (
     <Box>
+      <Head>
+        <title>Users</title>
+      </Head>
       <p className="text-gray-700 text-3xl mb-16 font-bold">Users</p>
       <ButtonGroup className="align-middle bg-gray">
         <Button
