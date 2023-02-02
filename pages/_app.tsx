@@ -70,7 +70,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         )}
         {router.pathname === '/admin/editUserPhoto' && (
           <Layout>
-            <EditUserPhoto {...pageProps} />       
+            <EditUserPhoto {...pageProps} />
           </Layout>
         )}
       </Provider>

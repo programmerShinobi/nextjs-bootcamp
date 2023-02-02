@@ -37,7 +37,7 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
       dispatchEditPhoto(doUpdatePhotoUsers(24, isDataUpload));
       router.reload()      
     } catch (error: any) {
-      console.log(error.response?.data);
+      console.log(error.message);
     }
     setUploading(false);
   };
@@ -75,13 +75,13 @@ const EditUserPhoto: NextPage<Props> = ({ dirs })=> {
               >
                 {uploading ? "Uploading.." : "Upload"}
               </button>
-              <div className="mt-20 flex flex-col space-y-3">
+              {/* <div className="mt-20 flex flex-col space-y-3">
                 {dirs.map((item) => (
                   <Link key={item} href={"/images/" + item}>
                     <label className="text-blue-500 hover:underline">{item}</label>
                   </Link>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
         </>
