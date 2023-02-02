@@ -12,6 +12,7 @@ import usersReducers from '../Redux/Reducer/usersReducer';
 
 export default function Login() {
 
+  // use Router
   const router = useRouter();
   
   // useDispatch
@@ -28,21 +29,19 @@ export default function Login() {
     setDataUser({ ...DataUser, [data]: event.target.value });
   }
   
-  // Mengambil state loginReducers dari store redux
+  // Mengambil state usersReducers dari store redux
   const isLogin = useSelector((state: any) => state.usersReducers.users);
 
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
     dispatch(doLogin(values));
-    console.info(isLogin.message);
-  // Memeriksa apakah user sudah login
-  // useEffect(() => {
+    console.info(isLogin.userdata);
+
+    // Memeriksa apakah user sudah login
     if (isLogin.message=='Login successfully') {
       router.push('/users');
     }
-  // }, [isLogin]);
-};
-
+  };
 
   // getHelper for display in form
   const getHelperText = (touched:any, errors:any) => {

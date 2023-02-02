@@ -67,8 +67,6 @@ function* handleLoginUsers(action) {
     try {
         const result = yield call(ReduceService.login, action.payload);
         yield put(doLoginSucceed(result.data));
-        console.info(result.data)
-
     }
     catch (error) {
         yield put(doLoginFailed(error));

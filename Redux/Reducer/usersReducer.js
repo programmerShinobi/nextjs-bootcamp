@@ -2,8 +2,7 @@ import ActionType from "../Constant/ActionType";
 
 const initialState = {
     users: [],
-    user: [],
-    // isLogin: null
+    user: []
 };
 
 function usersReducers(state = initialState, action) {
@@ -52,21 +51,6 @@ function usersReducers(state = initialState, action) {
                 users: state.users.filter(users => users.id !== action.payload.id)
             }
 
-        // case ActionType.LOGIN:
-        //     return { ...state };
-        // case ActionType.LOGIN_SUCCEED:
-        //     return {
-        //         ...state,
-        //         users: [...state.users, action.payload],
-        //         // isLogin: true,
-        //     };
-        // case ActionType.LOGIN_FAILED:
-        //     return {
-        //         ...state,
-        //         users: [...state.users, action.payload],
-        //         // isLogin: false,
-        //     };
-
         case ActionType.LOGIN:
             return { ...state };
         case ActionType.LOGIN_SUCCEED:
@@ -78,7 +62,6 @@ function usersReducers(state = initialState, action) {
             return { ...state, users: action.payload }
     }
 }
-
 
 const applyUpdateUsers = (state, action) => {
     return state.users.results.map((users) => {
