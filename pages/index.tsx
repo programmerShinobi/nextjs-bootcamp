@@ -30,7 +30,12 @@ export default function Login() {
 
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
-    dispatch(doLoginUsers(values));
+    const login = dispatch(doLoginUsers(values));
+        console.info(login);
+    // if (login) {
+    //     const router = useRouter();
+    //     router.push('/users');
+    // }
   };
 
   // getHelper for display in form

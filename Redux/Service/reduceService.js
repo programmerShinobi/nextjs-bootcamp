@@ -61,7 +61,6 @@ const remove = async (id) => {
 }
 
 const login = async (data) => {
-    console.info(data);
     try {
         const result = await axios.post("auth/login", data);
         return result;
