@@ -53,8 +53,8 @@ export default function Login() {
         
       <section className='w-3/4 mx-auto my-auto flex flex-col gap-3 rounded-xl' >
         <div className="title">
-          <h1 className='text-orange-600 text-4xl font-bold '>SHINOBI</h1><br />
-          <p className='w-3/4  mx-auto my-auto text-gray-400 text-sm '>Want to become a shinobi?<br />Let's join us!</p>
+          <h1 className='text-orange-600 text-3xl font-bold pb-2 '>SHINOBI</h1>
+          <p className='w-3/4  mx-auto my-auto text-gray-400 text-sm pb-3 '>Want to become a shinobi?<br />Let's join us!</p>
         </div>
         <Formik
           onSubmit={handleFormSubmit}
@@ -78,7 +78,8 @@ export default function Login() {
                 <TextField
                   color="warning"
                   fullWidth
-                  variant="filled"
+                  className="border border-orange-500"
+                  // variant="filled"
                   type="email"
                   label="Email"
                   onBlur={handleBlur}
@@ -93,7 +94,8 @@ export default function Login() {
                 <TextField
                   color="warning"
                   fullWidth
-                  variant="filled"
+                  className="border border-orange-500"
+                  // variant="filled"
                   type="text"
                   label="Password"
                   onBlur={handleBlur}
@@ -107,7 +109,7 @@ export default function Login() {
                 <Button
                     type="submit"
                     color="warning"
-                    className="rounded-md bg-orange-100 text-orange-500 border-warning-500 first-line:bg-opacity-20 px-4 py-2 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                    className="rounded-md bg-orange-100 text-orange-500 border-warning-500 first-line:bg-opacity-20 px-4 text-sm font-normal  hover:bg-opacity-30 focus:outline-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                     sx={{ gridColumn: "span 4" }}
                   >
                     <LoginIcon width={5} height={5} /><span className='text-transparent'>-</span>Login
