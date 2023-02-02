@@ -1,16 +1,31 @@
 import Head from 'next/head';
-import styles from '../styles/Form.module.css';
-import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useState } from 'react';
 import * as yup from "yup";
-import { Box, Button, ButtonGroup, FormControl, Grid, IconButton, InputLabel, Link, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
-import { LockClosedIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { Box, Button, InputLabel, Link } from "@mui/material";
 import TextField from '@mui/material/TextField';
-import { Form, Formik, ErrorMessage, Field, FieldArray } from 'formik';
+import { Form, Formik } from 'formik';
 import LoginIcon from '@mui/icons-material/Login';
-import Input from '@mui/material/Input';
+import { useDispatch } from 'react-redux';
 
-export default function Login(){
+export default function Login() {
+  // useDispatch API POST users
+  const dispatchAdd = useDispatch();
+
+  // define useState API POST users
+  const [DataUser, setDataUser] = useState({
+    userFullName: null,
+    userCompanyName: null,
+    userType: null,
+    userEmail: null,
+    userPhoneNumber:  null,
+  })
+
+  // function handler API POST users
+  const eventHandlerAdd = (data:any) => (event:any) => {
+    setDataUser({ ...DataUser, [data]: event.target.value });
+    // dispatch(doUsersRequest());
+  }
+
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
     // dispatchAdd(doUsersCreate(values));
@@ -21,10 +36,6 @@ export default function Login(){
   const getHelperText = (touched:any, errors:any) => {
     return (touched && errors ? errors : false)
   }
-
-  // phone regExp
-  const phoneRegExp =
-    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
   // check all validasi required & etc
   const checkoutSchema:any = yup.object().shape({
@@ -74,7 +85,7 @@ export default function Login(){
                   type="email"
                   label="Email"
                   onBlur={handleBlur}
-                  // onChange={(event) => {eventHandlerAdd('userEmail')(event); handleChange(event)}}
+                  onChange={(event) => {eventHandlerAdd('userEmail')(event); handleChange(event)}}
                   value={values.userEmail}
                   name="userEmail"
                   error={!!touched.userEmail && !!errors.userEmail}
@@ -89,7 +100,7 @@ export default function Login(){
                   type="text"
                   label="Password"
                   onBlur={handleBlur}
-                  // onChange={(event) => { eventHandlerAdd('uspaPasswordhash')(event); handleChange(event) }}
+                  onChange={(event) => { eventHandlerAdd('uspaPasswordhash')(event); handleChange(event) }}
                   value={values.uspaPasswordhash}
                   name="uspaPasswordhash"
                   error={!!touched.uspaPasswordhash && !!errors.uspaPasswordhash}
