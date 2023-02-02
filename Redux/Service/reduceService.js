@@ -1,4 +1,3 @@
-
 import axios from "../../Config/http-common";
 
 const getAll = async () => {
@@ -47,7 +46,6 @@ const updatePhoto = async (data) => {
     } catch (error) {
         return error.message;
     }
-
 }
 
 const remove = async (id) => {
@@ -57,7 +55,6 @@ const remove = async (id) => {
     } catch (error) {
         return error.message;
     }
-
 }
 
 const login = async (data) => {
