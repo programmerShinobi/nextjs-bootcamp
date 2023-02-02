@@ -58,6 +58,13 @@ function usersReducers(state = initialState, action) {
         case ActionType.LOGIN_FAILED:
             return { ...state, users: action.payload };
 
+        case ActionType.REGISTER:
+            return { ...state };
+        case ActionType.REGISTER_SUCCEED:
+            return { ...state, users: action.payload, };
+        case ActionType.REGISTER_FAILED:
+            return { ...state, users: action.payload };
+
         default:
             return { ...state, users: action.payload }
     }

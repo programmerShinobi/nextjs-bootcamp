@@ -1,7 +1,7 @@
 // import { call, put } from 'redux-saga/effects'
 import { call, put } from "redux-saga/effects";
 import ReduceService from "../Service/reduceService";
-import { doAddUsersFailed, doAddUsersSucceed, doDeleteUsersFailed, doDeleteUsersSucceed, doLoginFailed, doLoginSucceed, doUpdatePhotoUsersFailed, doUpdatePhotoUsersSucceed, doUpdateUsersFailed, doUpdateUsersSucceed, doUserRequestFailed, doUserRequestSucceed, doUsersRequestFailed, doUsersRequestSucceed } from '../Actions/reduceActions';
+import { doAddUsersFailed, doAddUsersSucceed, doDeleteUsersFailed, doDeleteUsersSucceed, doLoginFailed, doLoginSucceed, doRegisterFailed, doRegisterSucceed, doUpdatePhotoUsersFailed, doUpdatePhotoUsersSucceed, doUpdateUsersFailed, doUpdateUsersSucceed, doUserRequestFailed, doUserRequestSucceed, doUsersRequestFailed, doUsersRequestSucceed } from '../Actions/reduceActions';
 
 function* handleUsers() {
     try {
@@ -73,4 +73,14 @@ function* handleLoginUsers(action) {
     }
 }
 
-export { handleUsers, handleUser, handleAddUsers, handleDelUsers, handleUpdateUsers, handleUpdatePhotoUsers, handleLoginUsers }
+function* handleRegisterUsers(action) {
+    try {
+        const result = yield call(ReduceService.register, action.payload);
+        yield put(doRegisterSucceed(result.data));
+    }
+    catch (error) {
+        yield put(doRegisterFailed(error));
+    }
+}
+
+export { handleUsers, handleUser, handleAddUsers, handleDelUsers, handleUpdateUsers, handleUpdatePhotoUsers, handleLoginUsers, handleRegisterUsers }

@@ -4,9 +4,8 @@ import * as yup from "yup";
 import { Box, Button, InputLabel, Link } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import { Form, Formik } from 'formik';
-import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { doLogin } from '../../Redux/Actions/reduceActions';
+import { doRegister } from '../../Redux/Actions/reduceActions';
 import { useRouter } from 'next/router';
 import usersReducers from '../../Redux/Reducer/usersReducer';
 import { KeyIcon } from '@heroicons/react/24/solid';
@@ -23,7 +22,7 @@ export default function Register() {
   const [DataUser, setDataUser] = useState({
     userFullName:null,
     userEmail: null,
-    userPassword: null,
+    uspaPasswordhash: null,
   });
   
   // function handler API POST users
@@ -32,16 +31,16 @@ export default function Register() {
   }
   
   // Mengambil state usersReducers dari store redux
-  const isLogin = useSelector((state: any) => state.usersReducers.users);
+  const isRegister = useSelector((state: any) => state.usersReducers.users);
 
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
-    dispatch(doLogin(values));
-    console.info(isLogin.userdata);
+    dispatch(doRegister(values));
+    console.info(isRegister);
 
     // Memeriksa apakah user sudah login
-    if (isLogin.message=='Login successfully') {
-      router.push('/admin/dashboard');
+    if (isRegister.message=='Register Successfully') {
+      router.push('/auth/login');
     }
   };
 
@@ -54,14 +53,14 @@ export default function Register() {
   const checkoutSchema: any = yup.object().shape({
     userFullName: yup.string().required("required"),
     userEmail: yup.string().email("invalid email").required("required"),
-    userPassword: yup.string().required("required")
+    uspaPasswordhash: yup.string().required("required")
   });
 
   // function initialValue field from table users
   const initialValues: any = {
     userFullName: "",
     userEmail: "",
-    userPassword: "",
+    uspaPasswordhash: "",
   };
   return (
     <Box>
@@ -130,11 +129,11 @@ export default function Register() {
                   type="text"
                   label="Password"
                   onBlur={handleBlur}
-                  onChange={(event) => { eventHandlerAdd('userPassword')(event); handleChange(event) }}
-                  value={values.userPassword}
-                  name="userPassword"
-                  error={!!touched.userPassword && !!errors.userPassword}
-                  helperText={getHelperText(touched.userPassword, errors.userPassword)}
+                  onChange={(event) => { eventHandlerAdd('uspaPasswordhash')(event); handleChange(event) }}
+                  value={values.uspaPasswordhash}
+                  name="uspaPasswordhash"
+                  error={!!touched.uspaPasswordhash && !!errors.uspaPasswordhash}
+                  helperText={getHelperText(touched.uspaPasswordhash, errors.uspaPasswordhash)}
                   sx={{ gridColumn: "span 4" }}
                 />
                 <Button

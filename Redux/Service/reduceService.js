@@ -65,6 +65,15 @@ const login = async (data) => {
     }
 }
 
+const register = async (data) => {
+    try {
+        const result = await axios.post("auth/register", data);
+        return result;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const ReduceService = {
     getAll,
     getId,
@@ -72,7 +81,8 @@ const ReduceService = {
     update,
     remove,
     updatePhoto,
-    login
+    login,
+    register
 }
 
 export default ReduceService;

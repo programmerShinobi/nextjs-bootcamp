@@ -151,3 +151,24 @@ export const doLoginFailed = (payload) => {
         payload
     }
 }
+
+export const doRegister = (payload) => {
+    return {
+        type: ActionType.REGISTER,
+        payload
+    }
+}
+
+export const doRegisterSucceed = (payload) => {
+    return {
+        type: ActionType.REGISTER_SUCCEED,
+        payload
+    }
+}
+
+export const doRegisterFailed = (payload) => {
+    return {
+        type: ActionType.REGISTER_FAILED,
+        payload
+    }
+}
