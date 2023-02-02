@@ -1,42 +1,48 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from "yup";
 import { Box, Button, InputLabel, Link } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import { Form, Formik } from 'formik';
 import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { doLoginUsers } from '../Redux/Actions/reduceActions';
+import { doLogin } from '../Redux/Actions/reduceActions';
 import { useRouter } from 'next/router';
 import usersReducers from '../Redux/Reducer/usersReducer';
 
 export default function Login() {
 
-  const user = useSelector((state: any) => state.usersReducers.users);
-
+  const router = useRouter();
+  
   // useDispatch
   const dispatch = useDispatch();
-
+  
   // define useState API POST users
   const [DataUser, setDataUser] = useState({
     userEmail: null,
     userPassword: null,
   });
-
+  
   // function handler API POST users
   const eventHandlerAdd = (data:any) => (event:any) => {
     setDataUser({ ...DataUser, [data]: event.target.value });
   }
+  
+  // Mengambil state loginReducers dari store redux
+  const isLogin = useSelector((state: any) => state.usersReducers.users);
 
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
-    const login = dispatch(doLoginUsers(values));
-        console.info(login);
-    // if (login) {
-    //     const router = useRouter();
-    //     router.push('/users');
-    // }
-  };
+    dispatch(doLogin(values));
+    console.info(isLogin.message);
+  // Memeriksa apakah user sudah login
+  // useEffect(() => {
+    if (isLogin.message=='Login successfully') {
+      router.push('/users');
+    }
+  // }, [isLogin]);
+};
+
 
   // getHelper for display in form
   const getHelperText = (touched:any, errors:any) => {

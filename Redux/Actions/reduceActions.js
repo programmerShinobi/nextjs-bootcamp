@@ -131,24 +131,23 @@ export const doDeleteUsersFailed = (payload) => {
     }
 }
 
-export const doLoginUsers = (payload) => {
+export const doLogin = (payload) => {
     return {
-        type: ActionType.LOGIN_USERS,
+        type: ActionType.LOGIN,
         payload
     }
 }
 
-export const doLoginUsersSucceed = (payload) => {
+export const doLoginSucceed = (payload) => {
     return {
-        type: ActionType.LOGIN_USERS_SUCCEED,
+        type: ActionType.LOGIN_SUCCEED,
         payload
     }
-
 }
 
-export const doLoginUsersFailed = (payload) => {
+export const doLoginFailed = (payload) => {
     return {
-        type: ActionType.LOGIN_USERS_FAILED,
+        type: ActionType.LOGIN_FAILED,
         payload
     }
 }

@@ -10,7 +10,7 @@ function* watchAll() {
         takeEvery(ActionType.UPDATE_USERS, handleUpdateUsers),
         takeEvery(ActionType.UPDATE_PHOTO_USERS, handleUpdatePhotoUsers),
         takeEvery(ActionType.DEL_USERS, handleDelUsers),
-        takeEvery(ActionType.LOGIN_USERS, handleLoginUsers)
+        takeEvery(ActionType.LOGIN, handleLoginUsers)
     ]);
 }
 
