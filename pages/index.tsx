@@ -6,16 +6,16 @@ import TextField from '@mui/material/TextField';
 import { Form, Formik } from 'formik';
 import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { doLoginUsers } from '@/Redux/Actions/reduceActions';
+import { doLoginUsers } from '../Redux/Actions/reduceActions';
 import { useRouter } from 'next/router';
 import usersReducers from '../Redux/Reducer/usersReducer';
 
 export default function Login() {
 
   const user = useSelector((state: any) => state.usersReducers.users);
-  
+
   // useDispatch
-  const dispatchAdd = useDispatch();
+  const dispatch = useDispatch();
 
   // define useState API POST users
   const [DataUser, setDataUser] = useState({
@@ -30,7 +30,7 @@ export default function Login() {
 
   // function handle submit form add new users (API POST users)
   const handleFormSubmit = (values: any, { setSubmitting }: any) => {
-    dispatchAdd(doLoginUsers(values));
+    dispatch(doLoginUsers(values));
   };
 
   // getHelper for display in form
