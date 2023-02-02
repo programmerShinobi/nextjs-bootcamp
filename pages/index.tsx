@@ -20,7 +20,7 @@ export default function Login() {
   // define useState API POST users
   const [DataUser, setDataUser] = useState({
     userEmail: null,
-    uspaPasswordhash: null,
+    userPassword: null,
   });
 
   // function handler API POST users
@@ -41,13 +41,13 @@ export default function Login() {
   // check all validasi required & etc
   const checkoutSchema:any = yup.object().shape({
     userEmail: yup.string().email("invalid email").required("required"),
-    uspaPasswordhash: yup.string().required("required")
+    userPassword: yup.string().required("required")
   });
 
   // function initialValue field from table users
   const initialValues: any = {
     userEmail: "",
-    uspaPasswordhash: "",
+    userPassword: "",
   };
   return (
     <Box>
@@ -101,11 +101,11 @@ export default function Login() {
                   type="text"
                   label="Password"
                   onBlur={handleBlur}
-                  onChange={(event) => { eventHandlerAdd('uspaPasswordhash')(event); handleChange(event) }}
-                  value={values.uspaPasswordhash}
-                  name="uspaPasswordhash"
-                  error={!!touched.uspaPasswordhash && !!errors.uspaPasswordhash}
-                  helperText={getHelperText(touched.uspaPasswordhash, errors.uspaPasswordhash)}
+                  onChange={(event) => { eventHandlerAdd('userPassword')(event); handleChange(event) }}
+                  value={values.userPassword}
+                  name="userPassword"
+                  error={!!touched.userPassword && !!errors.userPassword}
+                  helperText={getHelperText(touched.userPassword, errors.userPassword)}
                   sx={{ gridColumn: "span 4" }}
                 />
                 <Button
