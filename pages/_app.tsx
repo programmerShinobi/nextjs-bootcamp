@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SessionProvider } from 'next-auth/react'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app';
@@ -27,10 +27,12 @@ import DashboardAdmin from "./admin";
 import DashboardManager from "./manager";
 import OB from "./ob";
 import HotelOB from "./ob/hotel";
+import { Navigate } from "react-router-dom";
+import PrivateRoute from "./privateRoute";
 
-
-const App = ({ Component, pageProps }: AppProps) => {
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
+
   return (
     <SessionProvider session={pageProps.session}>
       <Provider store={store}>
@@ -65,9 +67,11 @@ const App = ({ Component, pageProps }: AppProps) => {
           </LayoutOB>
         )}
         {router.pathname === '/admin' && (
-          <Layout>
-            <DashboardAdmin {...pageProps}/>       
-          </Layout>
+          <PrivateRoute>
+            <Layout>
+              <DashboardAdmin {...pageProps}/>       
+            </Layout>
+          </PrivateRoute>
         )}
         {router.pathname === '/admin/master' && (
           <Layout>
@@ -81,7 +85,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         )}
         {router.pathname === '/admin/users' && (
           <Layout>
-            <Users {...pageProps}/>
+            <Users/>
           </Layout>
         )}
         {router.pathname === '/admin/hotel' && (

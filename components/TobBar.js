@@ -11,8 +11,14 @@ import { Menu, Transition, Popover } from "@headlessui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+
+
 export default function TopBar({ showNav, setShowNav }) {
   const router = useRouter();
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    router.push('/auth/login');
+  };
   return (
     <div
       className={`fixed w-full h-16 flex justify-between items-center transition-all duration-[400ms] ${showNav ? "pl-56" : ""
@@ -157,6 +163,15 @@ export default function TopBar({ showNav, setShowNav }) {
                     <Cog8ToothIcon className="h-4 w-4 mr-2" />
                     Settings
                   </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <button
+                    onClick={handleLogout}
+                    className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
+                  >
+                    <Cog8ToothIcon className="h-4 w-4 mr-2" />
+                    Logout
+                  </button>
                 </Menu.Item>
               </div>
             </Menu.Items>

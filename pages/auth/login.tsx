@@ -38,6 +38,8 @@ export default function Login() {
 
     // Memeriksa apakah user sudah login
     if (isLogin.message == 'Login successfully') {
+      localStorage.setItem('token', isLogin.token);
+      console.info(isLogin);
       if (isLogin.userdata[0].usro_role_id == 1) {        // Guest
         router.push('/');
       } else if (isLogin.userdata[0].usro_role_id == 2) { // Manager
