@@ -28,7 +28,7 @@ import DashboardManager from "./manager";
 import OB from "./ob";
 import HotelOB from "./ob/hotel";
 import { Navigate } from "react-router-dom";
-import PrivateRoute from "./privateRoute";
+import PrivateRoute from "../utils/privateRoute";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -52,19 +52,25 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
           </LayoutAuth>
         )}
         {router.pathname === '/manager' && (
+          <PrivateRoute>
           <LayoutManager>
             <DashboardManager {...pageProps}/>       
           </LayoutManager>
+          </PrivateRoute>
         )}
         {router.pathname === '/ob' && (
-          <LayoutOB>
-            <OB {...pageProps}/>       
-          </LayoutOB>
+          <PrivateRoute>
+            <LayoutOB>
+              <OB {...pageProps}/>       
+            </LayoutOB>
+          </PrivateRoute>
         )}
         {router.pathname === '/ob/hotel' && (
-          <LayoutOB>
-            <HotelOB {...pageProps}/>
-          </LayoutOB>
+          <PrivateRoute>
+            <LayoutOB>
+              <HotelOB {...pageProps}/>
+            </LayoutOB>
+          </PrivateRoute>
         )}
         {router.pathname === '/admin' && (
           <PrivateRoute>
@@ -74,54 +80,74 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
           </PrivateRoute>
         )}
         {router.pathname === '/admin/master' && (
+        <PrivateRoute>
           <Layout>
             <Master {...pageProps}/>
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/admin/booking' && (
+        <PrivateRoute>
           <Layout>
             <Booking {...pageProps}/>
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/admin/users' && (
+        <PrivateRoute>
           <Layout>
             <Users/>
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/admin/hotel' && (
+        <PrivateRoute>
           <Layout>
             <Hotel {...pageProps}/>
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/admin/humanResources' && (
+        <PrivateRoute>
           <Layout>
             <HumanResources {...pageProps}/>
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/admin/payment' && (
+        <PrivateRoute>
           <Layout>
             <Payment {...pageProps}/>
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/admin/purchasing' && (
+        <PrivateRoute>
           <Layout>
             <Purchasing {...pageProps}/>
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/admin/resto' && (
+        <PrivateRoute>
           <Layout>
             <Resto {...pageProps}/>
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/admin/editUserPhoto' && (
+        <PrivateRoute>
           <Layout>
             <EditUserPhoto {...pageProps} />
           </Layout>
+        </PrivateRoute>
         )}
         {router.pathname === '/users' && (
+        <PrivateRoute>
           <LayoutUsers>
             <User {...pageProps}/>       
           </LayoutUsers>
+        </PrivateRoute>
         )}
       </Provider>
     </SessionProvider>
