@@ -10,6 +10,7 @@ import { BellIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Menu, Transition, Popover } from "@headlessui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Button } from "@mui/material";
 
 
 
@@ -165,13 +166,16 @@ export default function TopBar({ showNav, setShowNav }) {
                   </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <button
-                    onClick={handleLogout}
+                  <Link
+                    href='#'
                     className="flex hover:bg-orange-500 hover:text-white text-gray-700 rounded p-2 text-sm group transition-colors items-center"
                   >
                     <Cog8ToothIcon className="h-4 w-4 mr-2" />
-                    Logout
-                  </button>
+                    <button onClick={handleLogout}>
+                      Logout
+
+                    </button>
+                  </Link>
                 </Menu.Item>
               </div>
             </Menu.Items>
