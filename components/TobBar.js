@@ -12,8 +12,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import LogoutIcon from '@mui/icons-material/Logout';
 
-
-
 export default function TopBar({ showNav, setShowNav }) {
   const router = useRouter();
   const handleLogout = () => {

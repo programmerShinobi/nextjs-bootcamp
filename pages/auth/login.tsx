@@ -138,10 +138,10 @@ export default function Login() {
                     <LoginIcon width={5} height={5} /><span className='text-transparent'>-</span>{"Login"}
                 </Button>
                 <InputLabel
-                  className='text-center text-gray-400 text-sm'
+                  className='text-center text-gray-700 text-sm'
                   sx={{ gridColumn: "span 4" }}
                 >
-                  don't have an account yet?<Link href={'/auth/register'} className='text-orange-500'> Register</Link>
+                  don't have an account yet?<Link href={'/auth/register'} className='text-gray-700 hover:text-orange-500'> Register</Link>
                 </InputLabel>
               </Box>
             </Form>
